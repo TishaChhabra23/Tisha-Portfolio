@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tisha's Portfolio</title>
+
+  <!--
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./images/logo.ico" type="image/x-icon" />
+
+  <!--
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./style.css" />
+
+  <!--
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <!--
+    - #MAIN
+  -->
+
+  <main>
+    <!--
+      - #SIDEBAR
+    -->
+
+    <aside class="sidebar" data-sidebar>
+      <div class="sidebar-info">
+        <figure class="avatar-box">
+          <img src="./images/my-profile.jpg" alt="Profile Picture" />
+        </figure>
+        <div class="info-content">
+          <h1 class="name" title="Tisha Chhabra">Tisha Chhabra</h1>
+
+          <p class="title">Software developer</p>
+        </div>
+
+        <button class="info_more-btn" data-sidebar-btn>
+          <span>Show Contacts</span>
+
+          <ion-icon name="chevron-down"></ion-icon>
+        </button>
+      </div>
+
+      <div class="sidebar-info_more">
+        <div class="separator"></div>
+
+        <ul class="contacts-list">
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+
+              <a href="mailto:chhabratisha9@gmail.com" class="contact-link">chhabratisha9</a>
+            </div>
+          </li>
+
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="phone-portrait-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Phone</p>
+
+              <a href="tel:+91 9452930413" class="contact-link">+91 9452930413</a>
+            </div>
+          </li>
+
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="calendar-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Birthday</p>
+
+              <time datetime="2002-09-23">September 23, 2002</time>
+            </div>
+          </li>
+
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Location</p>
+
+              <address>Kanpur, UP, India</address>
+            </div>
+          </li>
+        </ul>
+
+        <div class="separator"></div>
+
+        <ul class="social-list">
+          <li class="social-item">
+            <a href="https://github.com/TishaChhabra23" class="social-link">
+              <ion-icon name="logo-github"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="https://www.linkedin.com/in/tisha-chhabra-01a709269?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+              class="social-link">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!--
+      - #main-content
+    -->
+
+    <div class="main-content">
+      <!--
+        - #NAVBAR
+      -->
+
+      <nav class="navbar">
+        <ul class="navbar-list">
+          <li class="navbar-item">
+            <button class="navbar-link active" data-nav-link>About</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Resume</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Certificates</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Projects</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Contact</button>
+          </li>
+        </ul>
+      </nav>
+
+      <!--
+        - #ABOUT
+      -->
+
+      <article class="about active" data-page="about">
+        <header>
+          <h2 class="h2 article-title">About me</h2>
+        </header>
+
+        <section class="about-text">
+          <p>
+            I am an MCA student passionate about building efficient and modern software solutions. With hands-on
+            experience in web
+            development, programming in C, and working with databases including MongoDB, I enjoy turning ideas into
+            functional
+            applications. I approach challenges with a logical mindset, strong work ethic, and a commitment to
+            continuous
+            improvement. I aim to contribute to dynamic teams where I can grow and add value through clean, reliable
+            code.
+          </p>
+        </section>
+
+        <!--
+          - service
+        -->
+
+        <section class="service">
+          <h3 class="h3 service-title">What I'm doing</h3>
+
+          <ul class="service-list">
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="./images/icon-design.png" alt="AI Projects icon" width="40" />
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">AI Projects</h4>
+
+                <p class="service-item-text">
+                  Developing cutting-edge AI-powered solutions, including
+                  voice-activated desktop assistants integrating AI image
+                  generation and smart search tools.
+                </p>
+              </div>
+            </li>
+
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="./images/icon-dev.png" alt="Web development icon" width="40" />
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Web Development</h4>
+
+                <p class="service-item-text">
+                  A website built with HTML and CSS offers a clean structure and visually appealing design.
+                  HTML lays out the content, while CSS adds style, spacing, and responsiveness.
+
+                </p>
+              </div>
+            </li>
+
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="./images/icon-app.png" alt="App Development icon" width="40" />
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">App Development</h4>
+
+                <p class="service-item-text">
+                  App development transforms ideas into functional digital solutions with simple, efficient user
+                  interfaces.
+                </p>
+              </div>
+            </li>
+
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="./images/icon-video.png" alt="Video Editing icon" width="43" />
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Video Editing</h4>
+
+                <p class="service-item-text">
+                  Skilled in creating visually appealing videos with smooth transitions, cinematic effects, and clear
+                  storytelling.
+                </p>
+              </div>
+            </li>
+
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="./images/icon-data.png" alt="Database Manager icon" width="35" />
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Database Manager</h4>
+
+                <p class="service-item-text">
+                  Skilled in working with multiple database systems including MongoDB, MySQL with an understanding of
+                  data modeling, querying, and efficient data management.
+                </p>
+              </div>
+            </li>
+
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="./images/icon-poster.png" alt="Poster Making icon" width="26" />
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Poster Making</h4>
+
+                <p class="service-item-text">
+                  Designing clean, impactful posters that communicate key
+                  messages at a glance with strong typography and brand
+                  consistency.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!--
+          - testimonials
+        -->
+        <!--
+          <section class="testimonials">
+            <h3 class="h3 testimonials-title">Testimonials</h3>
+
+            <ul class="testimonials-list has-scrollbar">
+              <li class="testimonials-item">
+                <div class="content-card" data-testimonials-item>
+                  <figure class="testimonials-avatar-box">
+                    <img
+                      src="./images/avatar-1.png"
+                      alt="Daniel lewis"
+                      width="60"
+                      data-testimonials-avatar
+                    />
+                  </figure>
+
+                  <h4
+                    class="h4 testimonials-item-title"
+                    data-testimonials-title
+                  >
+                    Daniel lewis
+                  </h4>
+
+                  <div class="testimonials-text" data-testimonials-text>
+                    <p>
+                      Richard was hired to create a corporate identity. We were
+                      very pleased with the work done. She has a lot of
+                      experience and is very concerned about the needs of
+                      client. Lorem ipsum dolor sit amet, ullamcous cididt
+                      consectetur adipiscing elit, seds do et eiusmod tempor
+                      incididunt ut laborels dolore magnarels alia.
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="testimonials-item">
+                <div class="content-card" data-testimonials-item>
+                  <figure class="testimonials-avatar-box">
+                    <img
+                      src="./images/avatar-2.png"
+                      alt="Jessica miller"
+                      width="60"
+                      data-testimonials-avatar
+                    />
+                  </figure>
+
+                  <h4
+                    class="h4 testimonials-item-title"
+                    data-testimonials-title
+                  >
+                    Jessica miller
+                  </h4>
+
+                  <div class="testimonials-text" data-testimonials-text>
+                    <p>
+                      Richard was hired to create a corporate identity. We were
+                      very pleased with the work done. She has a lot of
+                      experience and is very concerned about the needs of
+                      client. Lorem ipsum dolor sit amet, ullamcous cididt
+                      consectetur adipiscing elit, seds do et eiusmod tempor
+                      incididunt ut laborels dolore magnarels alia.
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="testimonials-item">
+                <div class="content-card" data-testimonials-item>
+                  <figure class="testimonials-avatar-box">
+                    <img
+                      src="./images/avatar-3.png"
+                      alt="Emily evans"
+                      width="60"
+                      data-testimonials-avatar
+                    />
+                  </figure>
+
+                  <h4
+                    class="h4 testimonials-item-title"
+                    data-testimonials-title
+                  >
+                    Emily evans
+                  </h4>
+
+                  <div class="testimonials-text" data-testimonials-text>
+                    <p>
+                      Richard was hired to create a corporate identity. We were
+                      very pleased with the work done. She has a lot of
+                      experience and is very concerned about the needs of
+                      client. Lorem ipsum dolor sit amet, ullamcous cididt
+                      consectetur adipiscing elit, seds do et eiusmod tempor
+                      incididunt ut laborels dolore magnarels alia.
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="testimonials-item">
+                <div class="content-card" data-testimonials-item>
+                  <figure class="testimonials-avatar-box">
+                    <img
+                      src="./images/avatar-4.png"
+                      alt="Henry william"
+                      width="60"
+                      data-testimonials-avatar
+                    />
+                  </figure>
+
+                  <h4
+                    class="h4 testimonials-item-title"
+                    data-testimonials-title
+                  >
+                    Henry william
+                  </h4>
+
+                  <div class="testimonials-text" data-testimonials-text>
+                    <p>
+                      Richard was hired to create a corporate identity. We were
+                      very pleased with the work done. She has a lot of
+                      experience and is very concerned about the needs of
+                      client. Lorem ipsum dolor sit amet, ullamcous cididt
+                      consectetur adipiscing elit, seds do et eiusmod tempor
+                      incididunt ut laborels dolore magnarels alia.
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </section>
+          -->
+        <!--
+          - testimonials modal
+        -->
+
+        <div class="modal-container" data-modal-container>
+          <div class="overlay" data-overlay></div>
+
+          <section class="testimonials-modal">
+            <button class="modal-close-btn" data-modal-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <!--
+              <div class="modal-img-wrapper">
+                <figure class="modal-avatar-box">
+                  <img
+                    src="./images/avatar-1.png"
+                    alt="Daniel lewis"
+                    width="80"
+                    data-modal-img
+                  />
+                </figure>
+
+                <img src="./images/icon-quote.png" alt="quote icon" />
+              </div>
+              -->
+            <div class="modal-content">
+              <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
+
+              <time datetime="2021-06-14">14 June, 2021</time>
+
+              <div data-modal-text>
+                <!--
+                  <p>
+                    Richard was hired to create a corporate identity. We were
+                    very pleased with the work done. She has a lot of experience
+                    and is very concerned about the needs of client. Lorem ipsum
+                    dolor sit amet, ullamcous cididt consectetur adipiscing
+                    elit, seds do et eiusmod tempor incididunt ut laborels
+                    dolore magnarels alia.
+                  </p>
+                  -->
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!--
+          - skills
+        -->
+
+        <section class="clients">
+          <h3 class="h3 clients-title">Skills</h3>
+
+          <ul class="clients-list has-scrollbar">
+            <li class="clients-item">
+              <a href="#">
+                <img src="./images/python.png" alt="client logo" />
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./images/C.png" alt="client logo" />
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./images/html.png" alt="client logo" />
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./images/CSS.png" alt="client logo" />
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./images/mysql.png" alt="client logo" />
+              </a>
+            </li>
+
+
+          </ul>
+        </section>
+      </article>
+
+      <!--
+        - #RESUME
+      -->
+
+      <article class="resume" data-page="resume">
+        <header>
+          <h2 class="h2 article-title">Resume</h2>
+        </header>
+
+        <section class="timeline">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Education</h3>
+          </div>
+
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                CHRIST (Deemed to be University)
+              </h4>
+
+              <span>2025 — Present</span>
+
+              <p class="timeline-text">
+                Pursuing Master of Computer Application with a specialization in software engineering, emphasizing
+                full-stack
+                development, algorithms, data structures, and emerging technologies.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                Kristu Jayanti College, Bengaluru
+              </h4>
+
+              <span>2022— 2025</span>
+
+              <p class="timeline-text">
+                Completed a Bachelor of Computer Applications (BCA) with foundational knowledge in programming, database
+                management, and
+                networks, supported by practical project experience.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                Mariampur Senior Secondary School, Kanpur
+              </h4>
+
+              <span>Passed out 2022</span>
+
+              <p class="timeline-text">
+                Completed Senior Secondary Education focusing on core subjects
+                with an emphasis on analytical and computer skills.
+              </p>
+            </li>
+          </ol>
+        </section>
+
+        <section class="timeline">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Experience</h3>
+          </div>
+
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                ORDANCE FACTORY, DEFENCE OF INDIA
+              </h4>
+
+              <span>June 2024 — July 2024</span>
+              <p class="timeline-text">
+                Interned in the IT Department at the Ordnance Factory (Defence of India), working with database systems,
+                learning data handling techniques, and supporting basic IT processes.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                Certification Intern — National Institute of Electronics and IT
+              </h4>
+
+              <span>May 2024 — July 2024</span>
+
+              <p class="timeline-text">
+                <i><b>Online Internship Program in Cloud Computing -</b></i>
+              </p>
+              <p class="timeline-text">
+                Completed an online Cloud Computing internship focused on understanding cloud infrastructure,
+                virtualization, deployment models, and practical implementation using leading cloud platforms.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                GAOTek
+              </h4>
+
+              <span>December 2024 — April 2025</span>
+              <p class="timeline-text">
+                Completed an online internship with GAOTek, a Canada-based organization, where I gained practical
+                experience in web development, product uploading, and managing content using WordPress.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Academic Projects</h4>
+
+              <span>August 2023 — May 2025</span>
+
+              <p class="timeline-text">
+                <i><b>Vehicle Management System -</b></i>
+              </p>
+              <p class="timeline-text">
+                Built a Car Rental System with Visual Basic for the user interface and SQL for database management,
+                enabling vehicle tracking, customer registration, booking management, and payment handling.
+              </p>
+              <br>
+              <p class="timeline-text">
+                <i><b>Mobile App (TO DO LIST) -</b></i>
+              </p>
+              <p class="timeline-text">
+                Built a task management (To-Do List) app using Android Studio with Java/Kotlin, implementing features
+                like task addition, editing, deletion, and local data storage using SQLite/Room Database for persistent
+                task management.
+              </p>
+            </li>
+
+            <!--
+                <li class="timeline-item">
+                <h4 class="h4 timeline-item-title">Web designer</h4>
+
+                <span>2010 — 2013</span>
+
+                <p class="timeline-text">
+                  Nemo enims ipsam voluptatem, blanditiis praesentium voluptum
+                  delenit atque corrupti, quos dolores et quas molestias
+                  exceptur.
+                </p>
+                </li>
+                -->
+          </ol>
+        </section>
+
+        <section class="skill">
+          <h3 class="h3 skills-title">My skills</h3>
+
+          <ul class="skills-list content-card">
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Python</h5>
+                <data value="80">80%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 80%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">C</h5>
+                <data value="70">70%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 70%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">HTML</h5>
+                <data value="80">80%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 80%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">CSS</h5>
+                <data value="80">80%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 80%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">MySQL</h5>
+                <data value="85">85%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 85%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Java</h5>
+                <data value="80">80%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 80%"></div>
+              </div>
+            </li>
+          </ul>
+          <br />
+          <a href="./assets/Tisha Chhabra's Resumes.pdf" download class="download-resume-btn">
+            <ion-icon name="download-outline"></ion-icon> Download Resume
+          </a>
+        </section>
+      </article>
+
+      <!--
+        - #certificates
+      -->
+
+      <article class="certificates" data-page="certificates">
+        <header>
+          <h2 class="h2 article-title">Certificates</h2>
+        </header>
+
+        <section class="projects">
+          <ul class="filter-list">
+            <li class="filter-item">
+              <button class="active" data-filter-btn>All</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Infosys</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>MongoDB</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>GAOTek</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Udemy</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Bentley</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Others</button>
+            </li>
+          </ul>
+
+          <div class="filter-select-box">
+            <button class="filter-select" data-select>
+              <div class="select-value" data-selecct-value>
+                Select category
+              </div>
+
+              <div class="select-icon">
+                <ion-icon name="chevron-down"></ion-icon>
+              </div>
+            </button>
+
+            <ul class="select-list">
+              <li class="select-item">
+                <button data-select-item>All</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Infosys</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>MongoDB</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>GAOTek</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Udemy</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Bentley</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Others</button>
+              </li>
+            </ul>
+          </div>
+
+          <ul class="project-list">
+            <li class="project-item active" data-filter-item data-category="infosys">
+              <a href="https://live.staticflickr.com/65535/55046338350_138ea1fdda_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046338350_138ea1fdda_b.jpg"
+                    alt="Blockchain for Enterprises" loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Blockchain for Enterprises</h3>
+
+                <p class="project-category">Infosys</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="infosys">
+              <a href="https://live.staticflickr.com/65535/55046182718_185bf58ce5_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046182718_185bf58ce5_b.jpg" alt="Network Fundamentals"
+                    loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Network Fundamentals</h3>
+
+                <p class="project-category">Infosys</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="infosys">
+              <a href="https://live.staticflickr.com/65535/55045996956_db94bf3156_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55045996956_db94bf3156_b.jpg" alt="Blockchain 101"
+                    loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Blockchain 101</h3>
+
+                <p class="project-category">Infosys</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="infosys">
+              <a href="https://live.staticflickr.com/65535/55046338350_138ea1fdda_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046338350_138ea1fdda_b.jpg" alt="Blockchain in Depth"
+                    loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Blockchain in Depth</h3>
+
+                <p class="project-category">Infosys</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="infosys">
+              <a href="https://live.staticflickr.com/65535/55046338345_a0c9160082_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046338345_a0c9160082_b.jpg"
+                    alt="Blockchain Foundation" loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Blockchain Foundation</h3>
+
+                <p class="project-category">Infosys</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="mongodb">
+              <a href="https://live.staticflickr.com/65535/55046182688_bb026e20e2_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046182688_bb026e20e2_b.jpg" alt="Java Developer"
+                    loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Java Developer</h3>
+
+                <p class="project-category">MongoDB</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="mongodb">
+              <a href="https://live.staticflickr.com/65535/55046257949_0e4e0c0a49_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046257949_0e4e0c0a49_b.jpg" alt="MongoDB"
+                    loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">MongoDB</h3>
+
+                <p class="project-category">MongoDB</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="mongodb">
+              <a href="https://live.staticflickr.com/65535/55046258064_af8671e068_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046258064_af8671e068_b.jpg" alt="MongoDB Basics"
+                    loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">MongoDB Basics</h3>
+
+                <p class="project-category">MongoDB</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="mongodb">
+              <a href="https://live.staticflickr.com/65535/55045103757_1d4611a622_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55045103757_1d4611a622_b.jpg"
+                    alt="MongoDB Document Model" loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">MongoDB Document Model</h3>
+
+                <p class="project-category">MongoDB</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="gaotek">
+              <a href="https://live.staticflickr.com/65535/55046257959_f6f14eb80c_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046257959_f6f14eb80c_b.jpg"
+                    alt="Product Management Internship" loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Product Management Internship</h3>
+
+                <p class="project-category">GAOTek</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="gaotek">
+              <a href="https://live.staticflickr.com/65535/55046182838_a40870413d_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046182838_a40870413d_b.jpg"
+                    alt="Product Management A-S-L" loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Product Management A-S-L</h3>
+
+                <p class="project-category">GAOTek</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="udemy">
+              <a href="https://live.staticflickr.com/65535/55045996901_8cb4b5a250_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55045996901_8cb4b5a250_b.jpg" alt="Python Framework"
+                    loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Python Framework with Selenium Webdriver</h3>
+
+                <p class="project-category">Udemy</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="bentley">
+              <a href="https://live.staticflickr.com/65535/55046258119_e7893ecc9c_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046258119_e7893ecc9c_b.jpg" alt="Modelling Structures"
+                    loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Modelling Structures</h3>
+
+                <p class="project-category">Bentley</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="bentley">
+              <a href="https://live.staticflickr.com/65535/55046338375_71768ef1a3_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046338375_71768ef1a3_b.jpg" alt="2D/3D CAD Modelling"
+                    loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">2D/3D CAD Modelling</h3>
+
+                <p class="project-category">Bentley</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="others">
+              <a href="https://live.staticflickr.com/65535/55045997381_253b992172_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55045997381_253b992172_b.jpg"
+                    alt="Computer Vision Onramp" loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Computer Vision Onramp</h3>
+
+                <p class="project-category">MathsWorks</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="others">
+              <a href="https://live.staticflickr.com/65535/55046338315_36af1da3cc_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046338315_36af1da3cc_b.jpg"
+                    alt="Cloud Security Fundamentals" loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Cloud Security Fundamentals</h3>
+
+                <p class="project-category">PaloAlto</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="others">
+              <a href="https://live.staticflickr.com/65535/55046338385_3468bda28f_b.jpg">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="https://live.staticflickr.com/65535/55046338385_3468bda28f_b.jpg" alt="Cloud Computing"
+                    loading="lazy" />
+                </figure>
+
+                <h3 class="project-title">Cloud Computing</h3>
+
+                <p class="project-category">NIELIT Virtual Academy</p>
+              </a>
+            </li>
+
+          </ul>
+        </section>
+      </article>
+
+      <!--
+        - #PROJECTS
+      -->
+
+      <article class="projects" data-page="projects">
+        <header>
+          <h2 class="h2 article-title">Projects</h2>
+        </header>
+
+        <section class="blog-posts">
+          <ul class="blog-posts-list">
+            <li class="blog-post-item">
+              <a href="https://github.com/Rohitpvt/AI-Destop-Assistant-with-GUI.git">
+                <figure class="blog-banner-box">
+                  <img src="https://live.staticflickr.com/65535/54766829658_8544c35a9e_b.jpg" alt="AI Destop Assistant"
+                    loading="lazy" />
+                </figure>
+
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">AI Destop Assistant</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Sep 2023 - May 2024</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">
+                    AI Destop Assistant with GUI
+                  </h3>
+
+                  <p class="blog-text">
+                    Developed a Python-based AI Assistant with AI Image
+                    Generation, Google Gemini integration, voice control, and
+                    gaming features, focusing on usability and performance
+                    optimization.
+                  </p>
+                </div>
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="https://github.com/Rohitpvt/E-commerce-Web.git">
+                <figure class="blog-banner-box">
+                  <img src="https://live.staticflickr.com/65535/54766843943_37cd4bee73_b.jpg" alt="E commerce Web"
+                    loading="lazy" />
+                </figure>
+
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">E commerce Web</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Sep 2024 - Nov 2024</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">E commerce Website</h3>
+
+                  <p class="blog-text">
+                    Developed a tech gadgets e-commerce site with secure
+                    authentication, cart management, and order processing,
+                    along with an admin dashboard for inventory and orders.
+                  </p>
+                </div>
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="https://github.com/Rohitpvt/Online-Voting-System.git">
+                <figure class="blog-banner-box">
+                  <img src="https://live.staticflickr.com/65535/54766607636_ddbfff0763_b.jpg" alt="Voting System"
+                    loading="lazy" />
+                </figure>
+
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">Voting System</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Jul 2024 - Sep 2024</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Online Voting System</h3>
+
+                  <p class="blog-text">
+                    Built a Flutter & Dart online voting app with secure
+                    authentication, state-wise election screens, and real-time
+                    results, using Firebase for backend and data management.
+                  </p>
+                </div>
+              </a>
+            </li>
+            <!--
+              <li class="blog-post-item">
+                <a href="https://github.com/Rohitpvt/Game-Store-Webpage.git">
+                  <figure class="blog-banner-box">
+                    <img
+                      src="https://live.staticflickr.com/65535/54765781192_c879e64ce7_b.jpg"
+                      alt="Webpage"
+                      loading="lazy"
+                    />
+                  </figure>
+
+                  <div class="blog-content">
+                    <div class="blog-meta">
+                      <p class="blog-category">Webpage</p>
+
+                      <span class="dot"></span>
+
+                      <time datetime="2022-02-23">Apr 2023 - Jul 2023</time>
+                    </div>
+
+                    <h3 class="h3 blog-item-title">Game Store Webpage</h3>
+
+                    <p class="blog-text">
+                      A gaming website store where users can browse and purchase
+                      games across a wide range of genres, including action,
+                      adventure, RPG, and more. The platform provides links to
+                      buy games from trusted official sources such as Steam,
+                      Epic Games, and other well-known digital storefronts,
+                      ensuring a secure and seamless purchasing experience.
+                    </p>
+                  </div>
+                </a>
+              </li>
+              -->
+          </ul>
+        </section>
+      </article>
+
+      <!--
+        - #CONTACT
+      -->
+
+      <article class="contact" data-page="contact">
+        <header>
+          <h2 class="h2 article-title">Contact</h2>
+        </header>
+
+        <section class="mapbox" data-mapbox>
+          <figure>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7144.459359422973!2d80.30213136793135!3d26.448324457323043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399c47bcedadcdd5%3A0x6fb6b214b6915e6d!2sGovind%20Nagar%2C%20Kanpur%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1768723604744!5m2!1sen!2sin"
+              width="400" height="300" loading="lazy"></iframe>
+          </figure>
+        </section>
+
+        <section class="contact-form">
+          <h3 class="h3 form-title">Contact Form</h3>
+
+          <form action="https://formspree.io/f/mgooazno" method="POST" class="form" data-form>
+            <input type="hidden" name="_next" value="https://rohitpvt.github.io/Portfolio/thankyou.html" />
+            <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission" />
+            <input type="hidden" name="_captcha" value="false" />
+            <div class="input-wrapper">
+              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input />
+
+              <input type="email" name="email" class="form-input" placeholder="Email address" required
+                data-form-input />
+            </div>
+
+            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+
+            <button class="form-btn" type="submit" disabled data-form-btn>
+              <ion-icon name="paper-plane"></ion-icon>
+              <span>Send Message</span>
+            </button>
+          </form>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <!--
+    - custom js link
+  -->
+  <script src="./script.js"></script>
+
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

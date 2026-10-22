@@ -1,0 +1,38 @@
+[
+  {
+    "title": "AI Career Mentor",
+    "category": "Personalized AI Platform",
+    "date": "Jan 2025 - Present",
+    "datetime": "2025-01-01",
+    "image": "./images/project-ai-career-mentor.jpg",
+    "link": "https://github.com/TishaChhabra23/AI-Career-Mentor.git",
+    "description": "Architected a full-stack AI career mentoring application powered by Google Gemini API, React 19, TypeScript, Vite, and Node.js/Express with MongoDB Atlas. Features personalized career roadmaps, skill radar assessments, and dynamic resume optimization."
+  },
+  {
+    "title": "AI Study Portal",
+    "category": "EdTech & RAG Chatbot",
+    "date": "Aug 2024 - Dec 2024",
+    "datetime": "2024-08-01",
+    "image": "./images/project-study-portal.jpg",
+    "link": "https://github.com/Rohitpvt/Study-Portal.git",
+    "description": "Built a collaborative academic library and syllabus QA portal with FastAPI, React 18, and an AI-powered FAISS RAG engine. Includes hierarchical course discovery, domain-restricted student authentication, vetted peer contributions, and admin review workflows."
+  },
+  {
+    "title": "Financial Fake News Detector",
+    "category": "NLP & Financial AI",
+    "date": "May 2024 - Jul 2024",
+    "datetime": "2024-05-01",
+    "image": "./images/project-fake-news.jpg",
+    "link": "https://github.com/Suresh-Nagvanshi/fake-financial-news-prediction.git",
+    "description": "Engineered an intelligent financial misinformation detection web app utilizing a fine-tuned DistilBERT transformer model. Provides real-time news credibility prediction with confidence scoring, market sentiment classification, and secure history logging with FastAPI & MongoDB."
+  },
+  {
+    "title": "LandfillPlume-AI Gas Forecasting",
+    "category": "Environmental AI & GIS",
+    "date": "Feb 2024 - Apr 2024",
+    "datetime": "2024-02-01",
+    "image": "./images/project-poisonous-gas.jpg",
+    "link": "https://github.com/Rohitpvt/Poisonous-Gas-Identification-Project.git",
+    "description": "Developed a machine learning and Explainable AI (SHAP) platform fusing satellite methane observations with 70,000+ DPCC ground sensor records. Features real-time Gaussian plume dispersion modeling, toxic gas concentration forecasting (LightGBM/XGBoost), and resident safe-zone alerts."
+  }
+]

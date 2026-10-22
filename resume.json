@@ -1,0 +1,78 @@
+{
+  "education": [
+    {
+      "title": "CHRIST (Deemed to be University)",
+      "duration": "2025 — Present",
+      "description": "Pursuing Master of Computer Application with a specialization in software engineering, emphasizing full-stack development, algorithms, data structures, and emerging technologies."
+    },
+    {
+      "title": "Kristu Jayanti College, Bengaluru",
+      "duration": "2022 — 2025",
+      "description": "Completed a Bachelor of Computer Applications (BCA) with foundational knowledge in programming, database management, and networks, supported by practical project experience."
+    },
+    {
+      "title": "Mariampur Senior Secondary School, Kanpur",
+      "duration": "Graduated 2022",
+      "description": "Completed Senior Secondary Education focusing on core subjects with an emphasis on analytical and computer skills."
+    }
+  ],
+  "experience": [
+    {
+      "title": "ORDNANCE FACTORY, DEFENCE OF INDIA",
+      "duration": "June 2024 — July 2024",
+      "description": "Interned in the IT Department at the Ordnance Factory (Defence of India), working with database systems, learning data handling techniques, and supporting basic IT processes."
+    },
+    {
+      "title": "Certification Intern — National Institute of Electronics and IT",
+      "duration": "May 2024 — July 2024",
+      "subheading": "Online Internship Program in Cloud Computing -",
+      "description": "Completed an online Cloud Computing internship focused on understanding cloud infrastructure, virtualization, deployment models, and practical implementation using leading cloud platforms."
+    },
+    {
+      "title": "GAOTek",
+      "duration": "December 2024 — April 2025",
+      "description": "Completed an online internship with GAOTek, a Canada-based organization, where I gained practical experience in web development, product uploading, and managing content using WordPress."
+    },
+    {
+      "title": "Academic Projects",
+      "duration": "August 2023 — May 2025",
+      "projects": [
+        {
+          "name": "Vehicle Management System -",
+          "description": "Built a Car Rental System with Visual Basic for the user interface and SQL for database management, enabling vehicle tracking, customer registration, booking management, and payment handling."
+        },
+        {
+          "name": "Mobile App (TO DO LIST) -",
+          "description": "Built a task management (To-Do List) app using Android Studio with Java/Kotlin, implementing features like task addition, editing, deletion, and local data storage using SQLite/Room Database for persistent task management."
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "Python",
+      "value": 80
+    },
+    {
+      "name": "C",
+      "value": 70
+    },
+    {
+      "name": "HTML",
+      "value": 80
+    },
+    {
+      "name": "CSS",
+      "value": 80
+    },
+    {
+      "name": "MySQL",
+      "value": 85
+    },
+    {
+      "name": "Java",
+      "value": 80
+    }
+  ],
+  "resumePdf": "./assets/Tisha_Chhabra_Resume.pdf"
+}

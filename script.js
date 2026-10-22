@@ -10,9 +10,11 @@ const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
 // sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () {
-  elementToggleFunc(sidebar);
-});
+if (sidebarBtn) {
+  sidebarBtn.addEventListener("click", function () {
+    elementToggleFunc(sidebar);
+  });
+}
 
 // testimonials variables
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
@@ -27,28 +29,34 @@ const modalText = document.querySelector("[data-modal-text]");
 
 // modal toggle function
 const testimonialsModalFunc = function () {
-  modalContainer.classList.toggle("active");
-  overlay.classList.toggle("active");
+  if (modalContainer) modalContainer.classList.toggle("active");
+  if (overlay) overlay.classList.toggle("active");
 };
 
 // add click event to all modal items
 for (let i = 0; i < testimonialsItem.length; i++) {
   testimonialsItem[i].addEventListener("click", function () {
-    modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
-    modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
-    modalTitle.innerHTML = this.querySelector(
-      "[data-testimonials-title]"
-    ).innerHTML;
-    modalText.innerHTML = this.querySelector(
-      "[data-testimonials-text]"
-    ).innerHTML;
+    if (modalImg) {
+      modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
+      modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
+    }
+    if (modalTitle) {
+      modalTitle.innerHTML = this.querySelector(
+        "[data-testimonials-title]"
+      ).innerHTML;
+    }
+    if (modalText) {
+      modalText.innerHTML = this.querySelector(
+        "[data-testimonials-text]"
+      ).innerHTML;
+    }
     testimonialsModalFunc();
   });
 }
 
 // add click event to modal close button
-modalCloseBtn.addEventListener("click", testimonialsModalFunc);
-overlay.addEventListener("click", testimonialsModalFunc);
+if (modalCloseBtn) modalCloseBtn.addEventListener("click", testimonialsModalFunc);
+if (overlay) overlay.addEventListener("click", testimonialsModalFunc);
 
 // custom select variables
 const select = document.querySelector("[data-select]");
@@ -56,27 +64,18 @@ const selectItems = document.querySelectorAll("[data-select-item]");
 const selectValue = document.querySelector("[data-selecct-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
 
-select.addEventListener("click", function () {
-  elementToggleFunc(this);
-});
-
-// add event in all select items
-for (let i = 0; i < selectItems.length; i++) {
-  selectItems[i].addEventListener("click", function () {
-    let selectedValue = this.innerText.toLowerCase();
-    selectValue.innerText = this.innerText;
-    elementToggleFunc(select);
-    filterFunc(selectedValue);
+if (select) {
+  select.addEventListener("click", function () {
+    elementToggleFunc(this);
   });
 }
 
-// filter variables
-const filterItems = document.querySelectorAll("[data-filter-item]");
+// filter function for certificates (queries items dynamically so JSON loaded items are always matched)
 const filterFunc = function (selectedValue) {
+  const filterItems = document.querySelectorAll("[data-filter-item]");
   for (let i = 0; i < filterItems.length; i++) {
-    if (selectedValue === "all") {
-      filterItems[i].classList.add("active");
-    } else if (selectedValue === filterItems[i].dataset.category) {
+    const category = (filterItems[i].dataset.category || "").toLowerCase();
+    if (selectedValue === "all" || selectedValue === category) {
       filterItems[i].classList.add("active");
     } else {
       filterItems[i].classList.remove("active");
@@ -84,14 +83,24 @@ const filterFunc = function (selectedValue) {
   }
 };
 
+// add event in all select items
+for (let i = 0; i < selectItems.length; i++) {
+  selectItems[i].addEventListener("click", function () {
+    let selectedValue = this.innerText.toLowerCase();
+    if (selectValue) selectValue.innerText = this.innerText;
+    if (select) elementToggleFunc(select);
+    filterFunc(selectedValue);
+  });
+}
+
 // add event in all filter button items for large screen
 let lastClickedBtn = filterBtn[0];
 for (let i = 0; i < filterBtn.length; i++) {
   filterBtn[i].addEventListener("click", function () {
     let selectedValue = this.innerText.toLowerCase();
-    selectValue.innerText = this.innerText;
+    if (selectValue) selectValue.innerText = this.innerText;
     filterFunc(selectedValue);
-    lastClickedBtn.classList.remove("active");
+    if (lastClickedBtn) lastClickedBtn.classList.remove("active");
     this.classList.add("active");
     lastClickedBtn = this;
   });
@@ -103,39 +112,41 @@ const formInputs = document.querySelectorAll("[data-form-input]");
 const formBtn = document.querySelector("[data-form-btn]");
 
 // add event to all form input field (keep existing validation)
-for (let i = 0; i < formInputs.length; i++) {
-  formInputs[i].addEventListener("input", function () {
-    // check form validation
-    if (form.checkValidity()) {
-      formBtn.removeAttribute("disabled");
-    } else {
-      formBtn.setAttribute("disabled", "");
-    }
+if (form && formInputs && formBtn) {
+  for (let i = 0; i < formInputs.length; i++) {
+    formInputs[i].addEventListener("input", function () {
+      // check form validation
+      if (form.checkValidity()) {
+        formBtn.removeAttribute("disabled");
+      } else {
+        formBtn.setAttribute("disabled", "");
+      }
+    });
+  }
+
+  // form submission handler
+  form.addEventListener("submit", function (e) {
+    // Show loading state
+    const originalContent = formBtn.innerHTML;
+    formBtn.innerHTML =
+      '<ion-icon name="hourglass-outline"></ion-icon><span>Sending...</span>';
+    formBtn.disabled = true;
+
+    // Let the form submit naturally to Formspree
+    // After 2 seconds, show success message
+    setTimeout(() => {
+      formBtn.innerHTML =
+        '<ion-icon name="checkmark-circle"></ion-icon><span>Message Sent!</span>';
+
+      // Reset form and button after 3 seconds
+      setTimeout(() => {
+        form.reset();
+        formBtn.innerHTML = originalContent;
+        formBtn.disabled = false;
+      }, 3000);
+    }, 2000);
   });
 }
-
-// Add this new form submission handler
-form.addEventListener("submit", function (e) {
-  // Show loading state
-  const originalContent = formBtn.innerHTML;
-  formBtn.innerHTML =
-    '<ion-icon name="hourglass-outline"></ion-icon><span>Sending...</span>';
-  formBtn.disabled = true;
-
-  // Let the form submit naturally to Formspree
-  // After 2 seconds, show success message (Formspree will handle the actual submission)
-  setTimeout(() => {
-    formBtn.innerHTML =
-      '<ion-icon name="checkmark-circle"></ion-icon><span>Message Sent!</span>';
-
-    // Reset form and button after 3 seconds
-    setTimeout(() => {
-      form.reset();
-      formBtn.innerHTML = originalContent;
-      formBtn.disabled = false;
-    }, 3000);
-  }, 2000);
-});
 
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
@@ -155,4 +166,191 @@ for (let i = 0; i < navigationLinks.length; i++) {
       }
     }
   });
+}
+
+// ==========================================
+// DYNAMIC DATA LOADERS (JSON FETCHING)
+// ==========================================
+
+// 1. Load Resume (Education, Experience, Skills)
+const loadResume = async function () {
+  try {
+    const res = await fetch("./resume.json?t=" + Date.now());
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const data = await res.json();
+
+    // Render Education
+    const educationList = document.querySelector("[data-education-list]");
+    if (educationList && data.education) {
+      educationList.innerHTML = data.education
+        .map(
+          (edu) => `
+        <li class="timeline-item">
+          <h4 class="h4 timeline-item-title">${edu.title}</h4>
+          <span>${edu.duration}</span>
+          <p class="timeline-text">${edu.description}</p>
+        </li>
+      `
+        )
+        .join("");
+    }
+
+    // Render Experience
+    const experienceList = document.querySelector("[data-experience-list]");
+    if (experienceList && data.experience) {
+      experienceList.innerHTML = data.experience
+        .map((exp) => {
+          let extra = "";
+          if (exp.subheading) {
+            extra += `<p class="timeline-text"><i><b>${exp.subheading}</b></i></p>`;
+          }
+          if (exp.description) {
+            extra += `<p class="timeline-text">${exp.description}</p>`;
+          }
+          if (exp.projects && Array.isArray(exp.projects)) {
+            extra += exp.projects
+              .map(
+                (proj, idx) => `
+              ${idx > 0 ? "<br>" : ""}
+              <p class="timeline-text"><i><b>${proj.name}</b></i></p>
+              <p class="timeline-text">${proj.description}</p>
+            `
+              )
+              .join("");
+          }
+
+          return `
+          <li class="timeline-item">
+            <h4 class="h4 timeline-item-title">${exp.title}</h4>
+            <span>${exp.duration}</span>
+            ${extra}
+          </li>
+        `;
+        })
+        .join("");
+    }
+
+    // Render Skills
+    const skillsList = document.querySelector("[data-skills-list]");
+    if (skillsList && data.skills) {
+      skillsList.innerHTML = data.skills
+        .map(
+          (skill) => `
+        <li class="skills-item">
+          <div class="title-wrapper">
+            <h5 class="h5">${skill.name}</h5>
+            <data value="${skill.value}">${skill.value}%</data>
+          </div>
+          <div class="skill-progress-bg">
+            <div class="skill-progress-fill" style="width: ${skill.value}%"></div>
+          </div>
+        </li>
+      `
+        )
+        .join("");
+    }
+
+    // Update Resume Download button if provided
+    const resumeBtn = document.querySelector("[data-resume-download]");
+    if (resumeBtn && data.resumePdf) {
+      resumeBtn.setAttribute("href", data.resumePdf);
+    }
+    console.log("Resume data loaded successfully");
+  } catch (error) {
+    console.error("Failed to load resume data:", error);
+  }
+};
+
+// 2. Load Certificates
+const loadCertificates = async function () {
+  try {
+    const res = await fetch("./certificates.json?t=" + Date.now());
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const certificates = await res.json();
+
+    const certList = document.querySelector("[data-certificates-list]");
+    if (certList && Array.isArray(certificates)) {
+      certList.innerHTML = certificates
+        .map(
+          (cert) => `
+        <li class="project-item active" data-filter-item data-category="${(
+          cert.category || ""
+        ).toLowerCase()}">
+          <a href="${cert.link}" target="_blank" rel="noopener noreferrer">
+            <figure class="project-img">
+              <div class="project-item-icon-box">
+                <ion-icon name="eye-outline"></ion-icon>
+              </div>
+              <img src="${cert.image}" alt="${cert.title}" loading="lazy" />
+            </figure>
+            <h3 class="project-title">${cert.title}</h3>
+            <p class="project-category">${cert.displayCategory || cert.category}</p>
+          </a>
+        </li>
+      `
+        )
+        .join("");
+
+      // Apply currently selected filter (e.g. "all")
+      const activeFilterBtn = document.querySelector("[data-filter-btn].active");
+      const currentCategory = activeFilterBtn
+        ? activeFilterBtn.innerText.toLowerCase()
+        : "all";
+      filterFunc(currentCategory);
+    }
+    console.log("Certificates data loaded successfully");
+  } catch (error) {
+    console.error("Failed to load certificates data:", error);
+  }
+};
+
+// 3. Load Projects
+const loadProjects = async function () {
+  try {
+    const res = await fetch("./projects.json?t=" + Date.now());
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const projects = await res.json();
+
+    const projectsList = document.querySelector("[data-projects-list]");
+    if (projectsList && Array.isArray(projects)) {
+      projectsList.innerHTML = projects
+        .map(
+          (proj) => `
+        <li class="blog-post-item">
+          <a href="${proj.link}" target="_blank" rel="noopener noreferrer">
+            <figure class="blog-banner-box">
+              <img src="${proj.image}" alt="${proj.title}" loading="lazy" />
+            </figure>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <p class="blog-category">${proj.category}</p>
+                <span class="dot"></span>
+                <time datetime="${proj.datetime || ""}">${proj.date}</time>
+              </div>
+              <h3 class="h3 blog-item-title">${proj.title}</h3>
+              <p class="blog-text">${proj.description}</p>
+            </div>
+          </a>
+        </li>
+      `
+        )
+        .join("");
+    }
+    console.log("Projects data loaded successfully");
+  } catch (error) {
+    console.error("Failed to load projects data:", error);
+  }
+};
+
+// Initialize all dynamic data loaders
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
+    loadResume();
+    loadCertificates();
+    loadProjects();
+  });
+} else {
+  loadResume();
+  loadCertificates();
+  loadProjects();
 }

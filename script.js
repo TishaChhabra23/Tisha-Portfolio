@@ -299,6 +299,37 @@ const loadResume = async function () {
         .join("");
     }
 
+    // Render Technical Skills (Categorized Bento Cards on Home Page)
+    const techStackContainer = document.getElementById("tech-stack-container");
+    const categoryIcons = {
+      "programming languages": "code-slash-outline",
+      "ai, deep learning & research": "bulb-outline",
+      "web & frontend development": "globe-outline",
+      "databases & backend": "server-outline",
+      "tools & engineering": "construct-outline"
+    };
+
+    if (techStackContainer && data.tech_stack) {
+      techStackContainer.innerHTML = Object.entries(data.tech_stack)
+        .map(([category, skills]) => {
+          const iconName = categoryIcons[category.toLowerCase().trim()] || "cube-outline";
+          return `
+            <div class="tech-category">
+              <div class="category-header">
+                <div class="category-icon-box">
+                  <ion-icon name="${iconName}"></ion-icon>
+                </div>
+                <h4 class="h4 category-title">${category}</h4>
+              </div>
+              <div class="tech-list">
+                ${skills.map((skill) => `<span class="tech-item">${skill}</span>`).join("")}
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+    }
+
     // Update Resume Download button if provided
     const resumeBtn = document.querySelector("[data-resume-download]");
     if (resumeBtn && data.resumePdf) {

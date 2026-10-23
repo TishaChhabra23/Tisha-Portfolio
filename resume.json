@@ -129,5 +129,47 @@
       "value": 80
     }
   ],
+  "tech_stack": {
+    "Programming Languages": [
+      "Python",
+      "Java",
+      "C",
+      "JavaScript",
+      "TypeScript",
+      "SQL"
+    ],
+    "AI, Deep Learning & Research": [
+      "Convolutional Neural Networks (CNNs)",
+      "TensorFlow / Keras",
+      "Transfer Learning",
+      "Grad-CAM (Explainable AI)",
+      "NLP & Transformers (DistilBERT)",
+      "Google Gemini API / LLMs",
+      "Computer Vision"
+    ],
+    "Web & Frontend Development": [
+      "React.js",
+      "HTML5",
+      "CSS3",
+      "Tailwind CSS",
+      "Vite",
+      "Responsive Glassmorphic UI"
+    ],
+    "Databases & Backend": [
+      "FastAPI",
+      "MySQL",
+      "MongoDB / Atlas",
+      "RESTful APIs",
+      "Node.js / Express",
+      "Firebase"
+    ],
+    "Tools & Engineering": [
+      "Git & GitHub",
+      "Data Structures & Algorithms",
+      "Linux / Bash",
+      "Model Evaluation (AUC-ROC)",
+      "VS Code"
+    ]
+  },
   "resumePdf": "./assets/Tisha_Chhabra_Resume.pdf"
 }

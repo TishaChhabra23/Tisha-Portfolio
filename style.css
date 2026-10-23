@@ -3158,6 +3158,73 @@ textarea.form-input::-webkit-resizer {
   font-weight: var(--fw-600);
 }
 
+.fit-role-tag {
+  display: inline-block;
+  color: var(--orange-yellow-crayola);
+  font-size: 11px;
+  font-weight: var(--fw-600);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+
+.fit-pitch-headline {
+  color: var(--white-1);
+  font-size: var(--fs-4);
+  font-weight: var(--fw-600);
+  margin-bottom: 12px;
+  line-height: 1.35;
+}
+
+.fit-pitch-bullets {
+  margin: 14px 0 6px;
+  padding-left: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fit-pitch-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--white-2);
+  font-size: var(--fs-6);
+  line-height: 1.5;
+}
+
+.fit-pitch-bullets ion-icon {
+  color: #4ade80;
+  font-size: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.fit-growth-box {
+  margin: 18px 0 24px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 219, 112, 0.3);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+}
+
+.fit-growth-box .growth-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--orange-yellow-crayola);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-600);
+  margin-bottom: 6px;
+}
+
+.fit-growth-box p {
+  color: var(--light-gray-70);
+  font-size: var(--fs-7);
+  line-height: 1.55;
+}
+
 .fit-section {
   margin-bottom: 26px;
 }

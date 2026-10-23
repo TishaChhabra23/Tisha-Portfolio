@@ -473,11 +473,21 @@ function initRecruiterFitAnalyzer() {
 
   if (!modal) return;
 
-  // Presets mapping
+  // Helper for strict word boundary pattern matching
+  function hasWord(text, word) {
+    if (!text || !word) return false;
+    const escaped = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+    const reg = new RegExp(`(^|[^a-zA-Z0-9_#+])${escaped}(?=[^a-zA-Z0-9_#+]|$)`, "i");
+    return reg.test(text);
+  }
+
+  // Presets mapping with 6 distinct domain archetypes
   const presets = {
     aiml: "Looking for an AI / Machine Learning Engineer with strong Python proficiency, experience in Deep Learning (CNNs, PyTorch or TensorFlow), Computer Vision, model benchmarking, and Explainable AI (Grad-CAM). Must understand data preprocessing and neural network architecture design.",
     fullstack: "Seeking a Full-Stack Software Developer proficient in React, modern JavaScript/TypeScript, Python backend (FastAPI/Node.js), REST APIs, database architecture (MongoDB, MySQL), and engineering responsive web interfaces.",
-    python: "Hiring a Python Backend Developer to engineer robust RESTful APIs, data schemas (MySQL/MongoDB), microservices, backend data pipelines, and seamless frontend integrations.",
+    frontend: "Hiring a Frontend Engineer proficient in React 18/19, TypeScript, modern CSS3 styling, responsive UI/UX design, micro-interactions, component state management, and modern build tooling (Vite).",
+    backend: "Hiring a Backend & API Developer to engineer robust RESTful APIs with Python (FastAPI) and Node.js, data schemas (MySQL/MongoDB), microservices, backend data pipelines, and database optimization.",
+    datascience: "Seeking a Data Scientist or Analytics Engineer experienced in exploratory data analysis, statistical modeling with Pandas and NumPy, predictive modeling (LightGBM/XGBoost), SHAP explainability, and sensor/environmental data analytics.",
     research: "Seeking a Computer Science Research Engineer with strong foundations in neural network architectures, medical image classification, empirical evaluation (Macro-AUC, accuracy, sensitivity), and peer-reviewed IEEE publications."
   };
 
@@ -520,7 +530,7 @@ function initRecruiterFitAnalyzer() {
     }
   });
 
-  // Keyword dictionary for role requirements mapping
+  // Keyword dictionary for direct competency display
   const keywordDict = {
     "python": "Python",
     "deep learning": "Deep Learning",
@@ -629,7 +639,7 @@ function initRecruiterFitAnalyzer() {
       const texts = [
         "Parsing job description & requirements...",
         "Benchmarking skills & tech stack...",
-        "Cross-referencing projects & IEEE research...",
+        "Cross-referencing projects & credentials...",
         "Synthesizing personalized fit report..."
       ];
       let i = 0;
@@ -651,80 +661,396 @@ function initRecruiterFitAnalyzer() {
     });
   }
 
-  // Processing function
+  // Processing function with dynamic role track classification, tailored pitch & project scoring
   function processCandidateFit(input) {
-    const matchedKeywords = new Set();
+    const rawInput = input.trim();
+    const lowerInput = rawInput.toLowerCase();
 
+    // 1. Comprehensive Keyword Matching with Word Boundaries
+    const matchedKeywords = new Set();
     for (let key in keywordDict) {
-      const escaped = key.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-      const regex = new RegExp(`(^|[^a-zA-Z0-9_#+])${escaped}(?=[^a-zA-Z0-9_#+]|$)`, "i");
-      if (regex.test(input)) {
+      if (hasWord(lowerInput, key)) {
         matchedKeywords.add(keywordDict[key]);
       }
     }
-
     const matchesArray = Array.from(matchedKeywords);
 
-    // Contextual expansions
-    if (matchesArray.includes("Frontend Development")) {
-      ["HTML5", "CSS3", "JavaScript", "React.js"].forEach((k) => {
-        if (!matchesArray.includes(k)) matchesArray.push(k);
-      });
-    }
-    if (matchesArray.includes("Backend Engineering")) {
-      ["Python", "FastAPI", "MongoDB", "MySQL", "REST APIs"].forEach((k) => {
-        if (!matchesArray.includes(k)) matchesArray.push(k);
-      });
-    }
-    if (
-      matchesArray.includes("Artificial Intelligence") ||
-      matchesArray.includes("Machine Learning") ||
-      matchesArray.includes("Deep Learning")
-    ) {
-      ["Python", "TensorFlow", "CNNs (Convolutional Neural Networks)", "Explainable AI"].forEach((k) => {
-        if (!matchesArray.includes(k)) matchesArray.push(k);
-      });
-    }
+    // 2. Identify Role Track & Target Domain with Strict Word Boundaries
+    const trackKeywords = {
+      aiml: [
+        "ai", "artificial intelligence", "machine learning", "ml", "deep learning", "dl",
+        "cnn", "cnns", "convolutional neural network", "convolutional neural networks",
+        "computer vision", "cv", "image classification", "object detection",
+        "tensorflow", "pytorch", "keras", "transfer learning", "grad-cam", "gradcam",
+        "explainable ai", "xai", "transformers", "distilbert", "hugging face", "huggingface",
+        "llm", "llms", "large language model", "generative ai", "genai", "gemini",
+        "rag", "faiss", "vector database"
+      ],
+      research: [
+        "research", "researcher", "paper", "papers", "publication", "publications",
+        "ieee", "iconica", "conference", "journal", "peer-reviewed", "doi",
+        "benchmark", "empirical", "novel", "academic", "phd", "macro-auc", "specificity"
+      ],
+      fullstack: [
+        "fullstack", "full-stack", "full stack", "web developer", "web development",
+        "mern", "mean", "frontend and backend", "end-to-end web"
+      ],
+      frontend: [
+        "frontend", "front-end", "front end", "ui", "ux", "ui/ux", "user interface",
+        "react", "reactjs", "react.js", "nextjs", "next.js", "vue", "angular",
+        "html", "html5", "css", "css3", "tailwind", "tailwindcss", "responsive",
+        "web design", "vite", "typescript", "javascript", "figma"
+      ],
+      backend: [
+        "backend", "back-end", "back end", "api", "apis", "rest", "restful", "rest api",
+        "fastapi", "flask", "django", "node", "nodejs", "node.js", "express", "expressjs",
+        "sql", "mysql", "postgresql", "postgres", "mongodb", "mongo", "nosql",
+        "database", "databases", "microservices", "orm", "crud"
+      ],
+      datascience: [
+        "data science", "data scientist", "data analysis", "data analyst", "analytics",
+        "pandas", "numpy", "scikit-learn", "sklearn", "lightgbm", "xgboost",
+        "shap", "gis", "data visualization", "matplotlib", "seaborn", "statistics",
+        "predictive modeling", "forecasting"
+      ],
+      mobile: [
+        "mobile", "android", "ios", "kotlin", "flutter", "react native", "swift",
+        "mobile app", "mobile developer", "sqlite", "room database", "android studio"
+      ],
+      cloud_devops: [
+        "cloud", "aws", "azure", "gcp", "docker", "kubernetes", "k8s", "devops",
+        "ci/cd", "ci cd", "linux", "bash", "server", "virtualization", "infrastructure",
+        "networking", "sysadmin"
+      ],
+      general_swe: [
+        "software engineer", "software developer", "sde", "swe", "algorithms", "dsa",
+        "data structures", "oop", "object oriented", "c++", "cpp", "c", "java"
+      ]
+    };
 
-    // Match Projects
-    const matchedProjects = [];
-    if (window.globalProjects && Array.isArray(window.globalProjects)) {
-      window.globalProjects.forEach((proj) => {
-        let score = 0;
-        const projText = (
-          proj.title + " " +
-          proj.category + " " +
-          proj.description + " " +
-          (proj.tags || []).join(" ")
-        ).toLowerCase();
+    const trackScores = {
+      aiml: 0,
+      research: 0,
+      fullstack: 0,
+      frontend: 0,
+      backend: 0,
+      datascience: 0,
+      mobile: 0,
+      cloud_devops: 0,
+      general_swe: 0
+    };
 
-        matchesArray.forEach((kw) => {
-          if (projText.includes(kw.toLowerCase())) score += 2;
-        });
-
-        // Domain broad matches
-        if (input.includes("ai") || input.includes("machine learning") || input.includes("deep learning") || input.includes("cnn")) {
-          if (proj.title.toLowerCase().includes("tumor") || proj.title.toLowerCase().includes("mri") || proj.title.toLowerCase().includes("mentor")) score += 3;
+    for (let track in trackKeywords) {
+      trackKeywords[track].forEach((word) => {
+        if (hasWord(lowerInput, word)) {
+          trackScores[track] += 2;
         }
-        if (input.includes("react") || input.includes("fullstack") || input.includes("frontend")) {
-          if (proj.tags && proj.tags.some(t => t.toLowerCase().includes("react"))) score += 3;
-        }
-
-        if (score > 0) {
-          matchedProjects.push({ ...proj, matchScore: score });
-        }
       });
-
-      matchedProjects.sort((a, b) => b.matchScore - a.matchScore);
     }
 
-    // Match Publications (IEEE ICONICA 2026 Paper)
+    // Composite boost: If both frontend and backend have substantial hits, boost fullstack
+    if (trackScores.frontend >= 4 && trackScores.backend >= 4) {
+      trackScores.fullstack += 6;
+    }
+
+    // Determine primary track
+    let primaryTrack = "general_swe";
+    let highestScore = 0;
+    for (let track in trackScores) {
+      if (trackScores[track] > highestScore) {
+        highestScore = trackScores[track];
+        primaryTrack = track;
+      }
+    }
+
+    // 3. Smart Dynamic Role Title Detection
+    const titlePatterns = [
+      { pattern: /ai\s*\/\s*ml\s*(engineer|developer|specialist|intern)/i, title: "AI / ML Engineer" },
+      { pattern: /machine\s*learning\s*(engineer|developer|specialist|intern)/i, title: "Machine Learning Engineer" },
+      { pattern: /deep\s*learning\s*(engineer|specialist|researcher)/i, title: "Deep Learning Engineer" },
+      { pattern: /computer\s*vision\s*(engineer|specialist|researcher)/i, title: "Computer Vision Engineer" },
+      { pattern: /ai\s*(researcher|research\s*engineer|scientist)/i, title: "AI Research Engineer" },
+      { pattern: /research\s*(engineer|associate|scientist)/i, title: "Computer Science Research Engineer" },
+      { pattern: /data\s*scientist/i, title: "Data Scientist" },
+      { pattern: /data\s*analyst/i, title: "Data Analyst & Analytics Engineer" },
+      { pattern: /full[\s-]stack\s*(engineer|developer|software\s*engineer)/i, title: "Full-Stack Software Developer" },
+      { pattern: /react\s*(developer|engineer|frontend\s*developer)/i, title: "React & Frontend Developer" },
+      { pattern: /front[\s-]end\s*(developer|engineer|software\s*engineer)/i, title: "Frontend & UI Developer" },
+      { pattern: /back[\s-]end\s*(developer|engineer|software\s*engineer)/i, title: "Backend & API Engineer" },
+      { pattern: /python\s*(developer|engineer|backend\s*developer)/i, title: "Python Backend Developer" },
+      { pattern: /cloud\s*(engineer|specialist|architect)/i, title: "Cloud & Systems Engineer" },
+      { pattern: /devops\s*(engineer|specialist)/i, title: "DevOps & Cloud Engineer" },
+      { pattern: /mobile\s*(developer|engineer|app\s*developer)/i, title: "Mobile Application Developer" },
+      { pattern: /android\s*(developer|engineer)/i, title: "Android Application Developer" },
+      { pattern: /software\s*development\s*engineer|sde/i, title: "Software Development Engineer (SDE)" },
+      { pattern: /software\s*engineer/i, title: "Software Engineer" },
+      { pattern: /software\s*developer/i, title: "Software Developer" },
+      { pattern: /java\s*(developer|engineer)/i, title: "Java & Software Developer" }
+    ];
+
+    let detectedRoleTitle = "";
+    for (let item of titlePatterns) {
+      if (item.pattern.test(rawInput)) {
+        detectedRoleTitle = item.title;
+        break;
+      }
+    }
+
+    if (!detectedRoleTitle) {
+      const defaultTitles = {
+        aiml: "AI & Machine Learning Engineer",
+        research: "AI & Computer Science Research Engineer",
+        fullstack: "Full-Stack Software Developer",
+        frontend: "Frontend & UI Developer",
+        backend: "Backend & API Engineer",
+        datascience: "Data Scientist & Analytics Engineer",
+        mobile: "Mobile Application Developer",
+        cloud_devops: "Cloud & Systems Engineer",
+        general_swe: "Software Development Engineer (SDE)"
+      };
+      detectedRoleTitle = defaultTitles[primaryTrack] || "Software Engineering Candidate";
+    }
+
+    // 4. Transparent Adjacent Technologies Detection
+    const externalTools = [
+      { key: "aws", label: "AWS Cloud" },
+      { key: "docker", label: "Docker" },
+      { key: "kubernetes", label: "Kubernetes" },
+      { key: "k8s", label: "Kubernetes" },
+      { key: "golang", label: "Go / GoLang" },
+      { key: "go", label: "GoLang" },
+      { key: "c#", label: "C#" },
+      { key: "csharp", label: "C#" },
+      { key: "angular", label: "Angular" },
+      { key: "vue", label: "Vue.js" },
+      { key: "graphql", label: "GraphQL" },
+      { key: "kafka", label: "Apache Kafka" },
+      { key: "spring", label: "Spring Boot" },
+      { key: "redis", label: "Redis" },
+      { key: "flutter", label: "Flutter" },
+      { key: "swift", label: "Swift" },
+      { key: "azure", label: "Microsoft Azure" },
+      { key: "gcp", label: "Google Cloud Platform" },
+      { key: "ci/cd", label: "CI/CD Pipelines" },
+      { key: "terraform", label: "Terraform" }
+    ];
+
+    const detectedGrowthTools = [];
+    externalTools.forEach((t) => {
+      if (hasWord(lowerInput, t.key) && !detectedGrowthTools.includes(t.label)) {
+        detectedGrowthTools.push(t.label);
+      }
+    });
+
+    // 5. Dynamic Fit Scoring (Realistic & Differentiated: 72% - 98%)
+    let matchScorePercentage = 85;
+    const matchCount = matchesArray.length;
+
+    if (primaryTrack === "aiml") {
+      matchScorePercentage = matchCount >= 5 ? 98 : (matchCount >= 3 ? 94 : 90);
+    } else if (primaryTrack === "research") {
+      matchScorePercentage = matchCount >= 4 ? 98 : (matchCount >= 2 ? 93 : 89);
+    } else if (primaryTrack === "fullstack") {
+      matchScorePercentage = matchCount >= 4 ? 96 : (matchCount >= 2 ? 92 : 88);
+    } else if (primaryTrack === "backend") {
+      matchScorePercentage = matchCount >= 4 ? 95 : (matchCount >= 2 ? 91 : 86);
+    } else if (primaryTrack === "frontend") {
+      matchScorePercentage = matchCount >= 3 ? 94 : 88;
+    } else if (primaryTrack === "datascience") {
+      matchScorePercentage = matchCount >= 3 ? 93 : 87;
+    } else if (primaryTrack === "mobile") {
+      matchScorePercentage = matchCount >= 2 ? 86 : 80;
+    } else if (primaryTrack === "cloud_devops") {
+      matchScorePercentage = matchCount >= 2 ? 85 : 79;
+    } else {
+      matchScorePercentage = matchCount >= 4 ? 89 : (matchCount >= 2 ? 83 : 76);
+    }
+
+    if (detectedGrowthTools.length >= 3) {
+      matchScorePercentage = Math.max(matchScorePercentage - 8, 72);
+    } else if (detectedGrowthTools.length >= 1) {
+      matchScorePercentage = Math.max(matchScorePercentage - 4, 76);
+    }
+
+    // 6. Role-Tailored Executive Pitch & Domain Bullet Points (9 distinct tracks)
+    let pitchHeadline = "";
+    let pitchBody = "";
+    let domainBulletPoints = [];
+
+    if (primaryTrack === "aiml") {
+      pitchHeadline = `High-impact technical alignment for AI, Machine Learning, and Deep Learning engineering.`;
+      pitchBody = `For AI and Machine Learning engineering, Tisha offers verified, high-level competency in deep learning architectures, convolutional neural networks, and model explainability. As first author of peer-reviewed research published by IEEE (ICONICA 2026), she trained and benchmarked advanced CNN backbones (EfficientNetV2, DenseNet121, ResNet50V2), achieving 98.92% accuracy, 0.9999 Macro-AUC, zero false negatives on healthy scans, and Grad-CAM visual explainability. Furthermore, her repository portfolio demonstrates practical deployment with transformer models (DistilBERT), Google Gemini APIs, and gradient boosting (LightGBM/SHAP).`;
+      domainBulletPoints = [
+        "First-author peer-reviewed IEEE research in deep learning CNN benchmark & Grad-CAM XAI.",
+        "Production ML pipeline engineering with TensorFlow/Keras, PyTorch, and Scikit-Learn.",
+        "Practical integration of Hugging Face NLP transformers and Google Gemini LLM APIs."
+      ];
+    } else if (primaryTrack === "research") {
+      pitchHeadline = `Peer-reviewed scientific rigor, empirical benchmarking, and academic presentation track record.`;
+      pitchBody = `For research and R&D roles, Tisha stands out as a published first author with the IEEE International Conference on Next-Gen Intelligent Computing and Applications (ICONICA 2026). She formulated novel classification heads combining global average pooling with max pooling, categorical label smoothing, and 8-fold test-time augmentation, demonstrating disciplined methodology from dataset curation to paper writing and conference defense.`;
+      domainBulletPoints = [
+        "First-author peer-reviewed paper indexed in IEEE Xplore with registered DOI (10.1109/ICONICA70605.2026.11736701).",
+        "Formal conference presentation and defense of deep learning methodology.",
+        "Deep understanding of convolutional backbones, loss functions, and spatial heatmaps (Grad-CAM)."
+      ];
+    } else if (primaryTrack === "fullstack") {
+      pitchHeadline = `Seamless end-to-end full-stack architecture bridging modern UI with robust backends.`;
+      pitchBody = `Tisha demonstrates comprehensive full-stack execution, bridging responsive frontend architectures with high-throughput API services and database persistence. She has built complete production web applications using React 18/19, TypeScript, and modern CSS on the frontend, integrated with FastAPI and Node.js/Express server backends backed by MongoDB Atlas and MySQL database systems.`;
+      domainBulletPoints = [
+        "Frontend mastery in React 18/19, TypeScript, Vite, responsive CSS, and state management.",
+        "Backend API design using FastAPI and Node.js/Express with schema modeling and JWT auth.",
+        "Database persistence design across MongoDB Atlas and relational MySQL."
+      ];
+    } else if (primaryTrack === "frontend") {
+      pitchHeadline = `User-centric modern frontend engineering with state-of-the-art visual craftsmanship.`;
+      pitchBody = `For frontend engineering, Tisha creates elegant, accessible, and performant user interfaces. Her work features modern component architecture in React 18/19 and TypeScript, dynamic styling with CSS3 and Tailwind CSS, and cutting-edge Apple-style liquid glassmorphism. She prioritizes responsive layout engineering, sub-pixel visual fidelity, and clean component state management.`;
+      domainBulletPoints = [
+        "Component architecture in React, TypeScript, and Vite with clean modular structure.",
+        "Advanced CSS3 styling, glassmorphic refraction, and smooth micro-interactions.",
+        "Responsive cross-device layouts with high visual polish and fast load times."
+      ];
+    } else if (primaryTrack === "backend") {
+      pitchHeadline = `Robust API engineering, schema design, and high-performance server logic.`;
+      pitchBody = `For backend development, Tisha focuses on designing modular, scalable server architectures, clean RESTful endpoints, and structured data persistence. She has hands-on experience developing asynchronous backend services with FastAPI and Node.js, engineering data access layers with MongoDB Atlas and MySQL, and integrating secure authentication and third-party microservices.`;
+      domainBulletPoints = [
+        "RESTful API architecture design using Python (FastAPI) and Node.js/Express.",
+        "Relational & NoSQL database management, querying, and schema optimization (MySQL, MongoDB).",
+        "Clean software design, modular service routing, and cloud/local database connectivity."
+      ];
+    } else if (primaryTrack === "datascience") {
+      pitchHeadline = `Rigorous data analytics, feature modeling, and quantitative validation pipelines.`;
+      pitchBody = `Tisha pairs data analysis with predictive machine learning modeling. Her portfolio includes predictive modeling with LightGBM/XGBoost on 70,000+ environmental sensor records, SHAP Explainable AI attribution, and extensive statistical evaluation across high-dimensional medical MRI and tabular datasets using Pandas, NumPy, and Scikit-Learn.`;
+      domainBulletPoints = [
+        "Statistical data modeling with Python, Pandas, NumPy, and Scikit-Learn.",
+        "Feature engineering and gradient boosting with LightGBM, XGBoost, and SHAP explainability.",
+        "Rigorous metric benchmarking including ROC-AUC, sensitivity, specificity, and loss curves."
+      ];
+    } else if (primaryTrack === "mobile") {
+      pitchHeadline = `Native mobile application development grounded in responsive UI and local persistence.`;
+      pitchBody = `Tisha brings hands-on mobile app development experience building Android applications using Android Studio, Java/Kotlin, and SQLite/Room Database for local persistence. Her projects incorporate clean mobile UI flows, responsive layout adaptations, and seamless local data management.`;
+      domainBulletPoints = [
+        "Hands-on Android application development using Java/Kotlin and Android Studio.",
+        "Local database management with SQLite and Room Database architecture.",
+        "Adaptive UI design principles ensuring smooth usability across mobile screen densities."
+      ];
+    } else if (primaryTrack === "cloud_devops") {
+      pitchHeadline = `Certified cloud infrastructure foundations and structured systems integration.`;
+      pitchBody = `Tisha completed a certified Cloud Computing internship with the National Institute of Electronics and IT (NIELIT), focusing on virtualization, cloud service models, and infrastructure management. Combined with Linux shell proficiency and Git version control, she brings disciplined deployment practices to modern development teams.`;
+      domainBulletPoints = [
+        "NIELIT-certified training in cloud infrastructure, virtualization, and deployment models.",
+        "Proficiency with Linux environments, Git/GitHub version control, and cloud-hosted databases (MongoDB Atlas).",
+        "Agile technical adaptability to rapidly master containerization (Docker) and major cloud providers (AWS/GCP)."
+      ];
+    } else {
+      pitchHeadline = `Strong software engineering foundations, object-oriented design, and rapid technical adaptability.`;
+      pitchBody = `Currently pursuing an MCA at CHRIST (Deemed to be University) with a specialization in software engineering, Tisha possesses a solid theoretical and practical foundation in Object-Oriented Programming, Data Structures & Algorithms, and modern application development. Her verified project delivery across multiple programming languages (Python, Java, C, JavaScript) demonstrates disciplined engineering and rapid technical adaptability.`;
+      domainBulletPoints = [
+        "Solid theoretical grounding in Data Structures, Algorithms, and Software Engineering principles.",
+        "Multi-language versatility across Python, Java, C, and modern JavaScript/TypeScript.",
+        "Proven ability to rapidly learn, architect, and deliver robust software systems."
+      ];
+    }
+
+    // 7. Dynamic Project Prioritization & Scoring
+    const scoredProjects = (window.globalProjects || []).map((proj) => {
+      let pScore = 0;
+      const text = (
+        proj.title + " " +
+        proj.category + " " +
+        proj.description + " " +
+        (proj.tags || []).join(" ")
+      ).toLowerCase();
+
+      // Check direct keyword hits against project content
+      for (let key in keywordDict) {
+        if (hasWord(lowerInput, key) && text.includes(key.toLowerCase())) {
+          pScore += 5;
+        }
+      }
+
+      // Track-specific project boosts
+      if (primaryTrack === "aiml") {
+        if (proj.title.includes("Brain Tumor")) pScore += 24;
+        if (proj.title.includes("Fake News")) pScore += 16;
+        if (proj.title.includes("Career Mentor")) pScore += 12;
+        if (proj.title.includes("LandfillPlume")) pScore += 10;
+        if (proj.title.includes("Study Portal")) pScore += 6;
+      } else if (primaryTrack === "research") {
+        if (proj.title.includes("Brain Tumor")) pScore += 30;
+        if (proj.title.includes("LandfillPlume")) pScore += 16;
+        if (proj.title.includes("Fake News")) pScore += 12;
+        if (proj.title.includes("Study Portal")) pScore += 6;
+      } else if (primaryTrack === "fullstack") {
+        if (proj.title.includes("Career Mentor")) pScore += 26;
+        if (proj.title.includes("Study Portal")) pScore += 22;
+        if (proj.title.includes("Fake News")) pScore += 12;
+        if (proj.title.includes("Brain Tumor")) pScore += 4;
+      } else if (primaryTrack === "frontend") {
+        if (proj.title.includes("Career Mentor")) pScore += 28;
+        if (proj.title.includes("Study Portal")) pScore += 24;
+        if (proj.title.includes("Fake News")) pScore += 8;
+        if (proj.title.includes("Brain Tumor")) pScore += 2;
+      } else if (primaryTrack === "backend") {
+        if (proj.title.includes("Study Portal")) pScore += 26;
+        if (proj.title.includes("Fake News")) pScore += 24;
+        if (proj.title.includes("Career Mentor")) pScore += 20;
+        if (proj.title.includes("LandfillPlume")) pScore += 6;
+      } else if (primaryTrack === "datascience") {
+        if (proj.title.includes("LandfillPlume")) pScore += 28;
+        if (proj.title.includes("Fake News")) pScore += 18;
+        if (proj.title.includes("Brain Tumor")) pScore += 16;
+        if (proj.title.includes("Career Mentor")) pScore += 6;
+      } else if (primaryTrack === "mobile") {
+        if (proj.title.includes("Career Mentor")) pScore += 20;
+        if (proj.title.includes("Study Portal")) pScore += 18;
+        if (proj.title.includes("Fake News")) pScore += 10;
+      } else if (primaryTrack === "cloud_devops") {
+        if (proj.title.includes("Study Portal")) pScore += 22;
+        if (proj.title.includes("Career Mentor")) pScore += 20;
+        if (proj.title.includes("LandfillPlume")) pScore += 14;
+      } else {
+        if (hasWord(lowerInput, "react") && text.includes("react")) pScore += 10;
+        if (hasWord(lowerInput, "python") && text.includes("python")) pScore += 10;
+        if (hasWord(lowerInput, "api") && text.includes("api")) pScore += 8;
+        if (hasWord(lowerInput, "sql") && text.includes("sql")) pScore += 8;
+        if (hasWord(lowerInput, "mongo") && text.includes("mongo")) pScore += 8;
+      }
+
+      return { ...proj, relevanceScore: pScore };
+    });
+
+    scoredProjects.sort((a, b) => b.relevanceScore - a.relevanceScore);
+    const topProjects = scoredProjects.slice(0, 3);
+
+    // 8. Context-Sensitive Research Spotlight (STRICT word boundary checking)
+    // Only displayed when role explicitly concerns AI/ML/CV or research papers!
+    const isResearchRelevant = (
+      primaryTrack === "aiml" ||
+      primaryTrack === "research" ||
+      hasWord(lowerInput, "research") ||
+      hasWord(lowerInput, "paper") ||
+      hasWord(lowerInput, "publication") ||
+      hasWord(lowerInput, "ieee") ||
+      hasWord(lowerInput, "iconica") ||
+      hasWord(lowerInput, "cnn") ||
+      hasWord(lowerInput, "cnns") ||
+      hasWord(lowerInput, "deep learning") ||
+      hasWord(lowerInput, "computer vision") ||
+      hasWord(lowerInput, "grad-cam") ||
+      hasWord(lowerInput, "medical imaging")
+    );
+
     let matchedPublication = null;
-    if (window.globalResume && window.globalResume.publications && window.globalResume.publications.length > 0) {
+    if (
+      isResearchRelevant &&
+      window.globalResume &&
+      window.globalResume.publications &&
+      window.globalResume.publications.length > 0
+    ) {
       matchedPublication = window.globalResume.publications[0];
     }
 
-    // Match Certificates
+    // 9. Dynamic Certificates Matching
     const matchedCerts = [];
     if (window.globalCertificates && Array.isArray(window.globalCertificates)) {
       window.globalCertificates.forEach((cert) => {
@@ -734,41 +1060,45 @@ function initRecruiterFitAnalyzer() {
           (cert.displayCategory || "")
         ).toLowerCase();
 
-        let isMatch = false;
+        let certScore = 0;
         matchesArray.forEach((kw) => {
-          if (certText.includes(kw.toLowerCase())) isMatch = true;
+          if (certText.includes(kw.toLowerCase())) certScore += 3;
         });
 
-        if (isMatch) matchedCerts.push(cert);
+        if (primaryTrack === "aiml" || primaryTrack === "research") {
+          if (certText.includes("ieee") || certText.includes("iconica")) certScore += 12;
+        }
+        if (primaryTrack === "cloud_devops") {
+          if (certText.includes("cloud") || certText.includes("nielit") || certText.includes("network")) certScore += 15;
+        }
+        if (primaryTrack === "backend" || hasWord(lowerInput, "sql") || hasWord(lowerInput, "mongo") || hasWord(lowerInput, "java")) {
+          if (certText.includes("mongodb") || certText.includes("java") || certText.includes("sql")) certScore += 10;
+        }
+        if (hasWord(lowerInput, "network") || hasWord(lowerInput, "blockchain")) {
+          if (certText.includes("network") || certText.includes("blockchain")) certScore += 10;
+        }
+
+        if (certScore > 0) {
+          matchedCerts.push({ ...cert, certScore });
+        }
       });
+
+      matchedCerts.sort((a, b) => b.certScore - a.certScore);
     }
 
-    // Compute fit score (88% to 98%)
-    let matchScorePercentage = 88;
-    if (matchesArray.length >= 6) {
-      matchScorePercentage = 98;
-    } else if (matchesArray.length >= 4) {
-      matchScorePercentage = 95;
-    } else if (matchesArray.length >= 2) {
-      matchScorePercentage = 91;
-    }
-
-    // Executive pitch construction
-    let pitchHTML = "";
-    if (matchesArray.length > 0) {
-      pitchHTML = `
-        <p>
-          Based on your requirements, <strong>Tisha Chhabra</strong> is a highly compelling candidate for this position, demonstrating a <strong>${matchScorePercentage}% direct technical alignment</strong>.
-        </p>
-        <p style="margin-top: 10px;">
-          Currently pursuing an <strong>MCA at CHRIST (Deemed to be University)</strong>, Tisha combines strong computer science fundamentals with verified real-world execution. Notably, she is the <strong>first author of peer-reviewed IEEE published research</strong> (ICONICA 2026) in deep learning and Explainable AI (Grad-CAM), and has engineered production-ready full-stack applications leveraging <strong>${matchesArray.slice(0, 5).join(", ")}</strong>.
-        </p>
-      `;
-    } else {
-      pitchHTML = `
-        <p>
-          Tisha brings a rigorous software engineering foundation as an MCA candidate with verified peer-reviewed IEEE research and full-stack development experience. While your prompt covers broader specifications, her algorithmic depth, fast ramp-up speed, and structured engineering practices make her well-suited to quickly master and deliver on your stack.
-        </p>
+    // Growth box HTML
+    let growthHTML = "";
+    if (detectedGrowthTools.length > 0) {
+      growthHTML = `
+        <div class="fit-growth-box">
+          <div class="growth-header">
+            <ion-icon name="trending-up-outline"></ion-icon>
+            <span>Adjacent Requirements & Rapid Ramp-Up</span>
+          </div>
+          <p>
+            Your description mentions <strong>${detectedGrowthTools.join(", ")}</strong>. While Tisha's primary production code emphasizes Python, React, FastAPI, and Deep Learning, her solid computer science foundation (algorithms, system architecture, relational database design) enables accelerated ramp-up to achieve production velocity on these adjacent tools.
+          </p>
+        </div>
       `;
     }
 
@@ -779,7 +1109,7 @@ function initRecruiterFitAnalyzer() {
         <div class="fit-section">
           <h4 class="fit-section-title">
             <ion-icon name="checkmark-done-circle-outline"></ion-icon>
-            <span>Verified Matching Skills (${matchesArray.length})</span>
+            <span>Directly Matched Competencies (${matchesArray.length})</span>
           </h4>
           <div class="matched-skills-list">
             ${matchesArray.map((kw) => `<span class="matched-skill-chip">${kw}</span>`).join("")}
@@ -788,14 +1118,14 @@ function initRecruiterFitAnalyzer() {
       `;
     }
 
-    // Research Paper Spotlight HTML
+    // Research Paper Spotlight HTML (Context-Sensitive)
     let researchHTML = "";
     if (matchedPublication) {
       researchHTML = `
         <div class="fit-section">
           <h4 class="fit-section-title">
             <ion-icon name="ribbon-outline"></ion-icon>
-            <span>Published IEEE Research Distinction</span>
+            <span>Published IEEE Research Distinction (Relevant to ${detectedRoleTitle})</span>
           </h4>
           <div class="match-research-card">
             <div class="research-header">
@@ -821,21 +1151,17 @@ function initRecruiterFitAnalyzer() {
       `;
     }
 
-    // Projects HTML
+    // Projects HTML (Ranked specifically for this role!)
     let projectsHTML = "";
-    const displayProjects = matchedProjects.length > 0 
-      ? matchedProjects.slice(0, 3) 
-      : (window.globalProjects ? window.globalProjects.slice(0, 3) : []);
-
-    if (displayProjects.length > 0) {
+    if (topProjects.length > 0) {
       projectsHTML = `
         <div class="fit-section">
           <h4 class="fit-section-title">
             <ion-icon name="code-slash-outline"></ion-icon>
-            <span>Directly Relevant Projects</span>
+            <span>Prioritized Projects for ${detectedRoleTitle}</span>
           </h4>
           <div class="matched-projects-grid">
-            ${displayProjects
+            ${topProjects
               .map(
                 (proj) => `
               <a href="${proj.link}" target="_blank" rel="noopener noreferrer" class="match-item-card">
@@ -855,14 +1181,14 @@ function initRecruiterFitAnalyzer() {
       `;
     }
 
-    // Certificates HTML
+    // Certificates HTML (Ranked specifically for this role!)
     let certsHTML = "";
     if (matchedCerts.length > 0) {
       certsHTML = `
         <div class="fit-section">
           <h4 class="fit-section-title">
             <ion-icon name="medal-outline"></ion-icon>
-            <span>Aligned Certifications</span>
+            <span>Aligned Credentials & Certifications</span>
           </h4>
           <div class="matched-certs-grid">
             ${matchedCerts.slice(0, 3).map((cert) => `
@@ -907,13 +1233,21 @@ function initRecruiterFitAnalyzer() {
         <div class="fit-results-header">
           <div class="fit-score-badge">
             <ion-icon name="shield-checkmark"></ion-icon>
-            <span>${matchScorePercentage}% Role Alignment • Strong Match</span>
+            <span>${matchScorePercentage}% Role Alignment • ${detectedRoleTitle}</span>
           </div>
-          <h3 class="h3 modal-title">Candidate Fit Assessment</h3>
+          <h3 class="h3 modal-title">Role Fit Assessment</h3>
         </div>
 
         <div class="fit-pitch">
-          ${pitchHTML}
+          <span class="fit-role-tag">${detectedRoleTitle}</span>
+          <h4 class="fit-pitch-headline">${pitchHeadline}</h4>
+          <p>${pitchBody}</p>
+
+          <ul class="fit-pitch-bullets">
+            ${domainBulletPoints.map(bp => `<li><ion-icon name="checkmark-circle"></ion-icon><span>${bp}</span></li>`).join("")}
+          </ul>
+
+          ${growthHTML}
         </div>
 
         ${skillsHTML}

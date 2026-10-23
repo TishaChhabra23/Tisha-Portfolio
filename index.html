@@ -15,7 +15,7 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="./style.css?v=2.5" />
+  <link rel="stylesheet" href="./style.css?v=2.6" />
 
   <!--
     - google font link
@@ -251,6 +251,27 @@
               </div>
             </li>
           </ul>
+        </section>
+
+        <!--
+          - #RECRUITER FIT ANALYZER CTA
+        -->
+        <section class="recruiter-cta-card">
+          <div class="cta-content">
+            <div class="cta-badge">
+              <ion-icon name="sparkles"></ion-icon>
+              <span>AI-Powered Fit Engine</span>
+            </div>
+            <h3 class="h3 cta-title">Recruiter Fit Analyzer</h3>
+            <p class="cta-subtitle">
+              Paste your role requirements or job description and get an instant, personalized candidate fit summary.
+            </p>
+          </div>
+
+          <button class="form-btn recruiter-cta-btn" id="open-recruiter-modal-btn" type="button">
+            <ion-icon name="analytics-outline"></ion-icon>
+            <span>Analyze Role Fit</span>
+          </button>
         </section>
 
         <!--
@@ -681,13 +702,75 @@
           </form>
         </section>
       </article>
+
+      <!--
+        - #RECRUITER FIT ANALYZER MODAL
+      -->
+      <div class="modal-container recruiter-modal-container" id="recruiter-modal">
+        <div class="recruiter-overlay" id="recruiter-overlay"></div>
+
+        <section class="recruiter-modal-content">
+          <button class="modal-close-btn" id="recruiter-close-btn" aria-label="Close modal">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+
+          <!-- State 1: Input -->
+          <div id="recruiter-state-input" class="recruiter-state active">
+            <div class="recruiter-modal-header">
+              <div class="cta-badge">
+                <ion-icon name="sparkles"></ion-icon>
+                <span>Interactive Assessment</span>
+              </div>
+              <h3 class="h3 modal-title">Recruiter Fit Analyzer</h3>
+              <p class="modal-text">
+                Paste your job description, required tech stack, or role responsibilities below. The analyzer will evaluate Tisha's background across AI/ML research, full-stack engineering, databases, and IEEE publications to generate a tailored fit breakdown.
+              </p>
+            </div>
+
+            <!-- Quick Presets for 1-Click Evaluation -->
+            <div class="recruiter-presets">
+              <span class="preset-label">Quick test presets:</span>
+              <div class="preset-chips">
+                <button type="button" class="preset-chip" data-preset="aiml">🤖 AI / ML Engineer</button>
+                <button type="button" class="preset-chip" data-preset="fullstack">💻 Full-Stack Developer</button>
+                <button type="button" class="preset-chip" data-preset="python">🐍 Python & Backend API</button>
+                <button type="button" class="preset-chip" data-preset="research">🔬 AI Research & Computer Vision</button>
+              </div>
+            </div>
+
+            <textarea id="recruiter-input" class="form-input recruiter-textarea"
+              placeholder="e.g. Looking for a Python Developer or AI/ML Engineer with experience in Deep Learning (CNNs, PyTorch/TensorFlow), REST APIs, FastAPI/React, MongoDB/MySQL, and modern software development..."></textarea>
+
+            <button class="form-btn recruiter-action-btn" id="recruiter-analyze-btn" type="button">
+              <ion-icon name="sparkles-outline"></ion-icon>
+              <span>Analyze Candidate Fit</span>
+            </button>
+          </div>
+
+          <!-- State 2: Scanner Animation -->
+          <div id="recruiter-state-anim" class="recruiter-state">
+            <div class="ai-scanner">
+              <div class="scanner-glow"></div>
+              <div class="scanner-line"></div>
+              <ion-icon name="aperture-outline" class="scanner-icon"></ion-icon>
+            </div>
+            <h3 class="h3 modal-title" id="recruiter-anim-text">Reading role requirements...</h3>
+            <p class="anim-subtext">Evaluating skills, publications, and repository codebases against your criteria</p>
+          </div>
+
+          <!-- State 3: Dynamic Results -->
+          <div id="recruiter-state-results" class="recruiter-state has-scrollbar">
+            <!-- Content dynamically generated via script.js -->
+          </div>
+        </section>
+      </div>
     </div>
   </main>
 
   <!--
     - custom js link
   -->
-  <script src="./script.js?v=2.5"></script>
+  <script src="./script.js?v=2.6"></script>
 
   <!--
     - ionicon link

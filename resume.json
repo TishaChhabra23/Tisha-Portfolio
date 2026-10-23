@@ -69,41 +69,6 @@
   ],
   "experience": [
     {
-      "title": "Lead Research Author — IEEE Publication",
-      "duration": "Aug 2025 — Feb 2026",
-      "subheading": "Department of Computer Science, CHRIST (Deemed to be University), Bengaluru",
-      "description": "First author of peer-reviewed research published in the Proceedings of the 2026 IEEE International Conference on Next-Gen Intelligent Computing and Applications (DOI: 10.1109/ICONICA70605.2026.11736701). Evaluated transfer learning across EfficientNetV2, DenseNet121, and ResNet50V2 on 7,000+ MRI slices, achieving 98.92% accuracy, 0.9999 Macro-AUC, zero false negatives on healthy scans, and Grad-CAM spatial interpretability.",
-      "badges": [
-        "IEEE Published",
-        "First Author",
-        "DOI: 10.1109/ICONICA70605.2026.11736701",
-        "98.92% Accuracy",
-        "0.9999 Macro-AUC"
-      ],
-      "highlights": [
-        "First-authored and presented peer-reviewed research benchmarking CNN backbones for 4-class brain tumor MRI diagnosis (Glioma, Meningioma, Pituitary, Normal).",
-        "Engineered transfer learning pipeline achieving 98.92% accuracy, 0.9999 Macro-AUC, and 100% healthy scan specificity.",
-        "Integrated Grad-CAM (XAI) feature activation heatmaps verifying clinical interpretability for radiologist review workflows."
-      ],
-      "links": [
-        {
-          "label": "Read Paper (PDF)",
-          "url": "./assets/Comparative_Analysis_Advanced_CNN_Brain_Tumor_Classification.pdf",
-          "icon": "document-text-outline"
-        },
-        {
-          "label": "Presentation Certificate",
-          "url": "./assets/ICONICA_2026_Presentation_Certificate_Tisha_Chhabra.pdf",
-          "icon": "ribbon-outline"
-        },
-        {
-          "label": "GitHub Repository",
-          "url": "https://github.com/TishaChhabra23/Research-Paper.git",
-          "icon": "logo-github"
-        }
-      ]
-    },
-    {
       "title": "ORDNANCE FACTORY, DEFENCE OF INDIA",
       "duration": "June 2024 — July 2024",
       "description": "Interned in the IT Department at the Ordnance Factory (Defence of India), working with database systems, learning data handling techniques, and supporting basic IT processes."

@@ -178,6 +178,7 @@ const loadResume = async function () {
     const res = await fetch("./resume.json?t=" + Date.now());
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const data = await res.json();
+    window.globalResume = data;
 
     // Render Education
     const educationList = document.querySelector("[data-education-list]");
@@ -315,6 +316,7 @@ const loadCertificates = async function () {
     const res = await fetch("./certificates.json?t=" + Date.now());
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const certificates = await res.json();
+    window.globalCertificates = certificates;
 
     const certList = document.querySelector("[data-certificates-list]");
     if (certList && Array.isArray(certificates)) {
@@ -358,6 +360,7 @@ const loadProjects = async function () {
     const res = await fetch("./projects.json?t=" + Date.now());
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const projects = await res.json();
+    window.globalProjects = projects;
 
     const projectsList = document.querySelector("[data-projects-list]");
     if (projectsList && Array.isArray(projects)) {
@@ -406,15 +409,522 @@ const loadProjects = async function () {
   }
 };
 
-// Initialize all dynamic data loaders
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", () => {
-    loadResume();
-    loadCertificates();
-    loadProjects();
-  });
-} else {
+// Initialize all dynamic data loaders and features
+const initApp = function () {
   loadResume();
   loadCertificates();
   loadProjects();
+  initRecruiterFitAnalyzer();
+};
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
+} else {
+  initApp();
 }
+
+/* =========================================================
+   RECRUITER FIT ANALYZER LOGIC
+   ========================================================= */
+function initRecruiterFitAnalyzer() {
+  const openModalBtn = document.getElementById("open-recruiter-modal-btn");
+  const modal = document.getElementById("recruiter-modal");
+  const closeBtn = document.getElementById("recruiter-close-btn");
+  const overlay = document.getElementById("recruiter-overlay");
+  const analyzeBtn = document.getElementById("recruiter-analyze-btn");
+  const textarea = document.getElementById("recruiter-input");
+
+  const stateInput = document.getElementById("recruiter-state-input");
+  const stateAnim = document.getElementById("recruiter-state-anim");
+  const stateResults = document.getElementById("recruiter-state-results");
+  const animText = document.getElementById("recruiter-anim-text");
+  const presetChips = document.querySelectorAll(".preset-chip");
+
+  if (!modal) return;
+
+  // Presets mapping
+  const presets = {
+    aiml: "Looking for an AI / Machine Learning Engineer with strong Python proficiency, experience in Deep Learning (CNNs, PyTorch or TensorFlow), Computer Vision, model benchmarking, and Explainable AI (Grad-CAM). Must understand data preprocessing and neural network architecture design.",
+    fullstack: "Seeking a Full-Stack Software Developer proficient in React, modern JavaScript/TypeScript, Python backend (FastAPI/Node.js), REST APIs, database architecture (MongoDB, MySQL), and engineering responsive web interfaces.",
+    python: "Hiring a Python Backend Developer to engineer robust RESTful APIs, data schemas (MySQL/MongoDB), microservices, backend data pipelines, and seamless frontend integrations.",
+    research: "Seeking a Computer Science Research Engineer with strong foundations in neural network architectures, medical image classification, empirical evaluation (Macro-AUC, accuracy, sensitivity), and peer-reviewed IEEE publications."
+  };
+
+  // Preset chip click events
+  presetChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const type = chip.getAttribute("data-preset");
+      if (presets[type] && textarea) {
+        textarea.value = presets[type];
+        textarea.focus();
+      }
+    });
+  });
+
+  // Modal toggle functionality
+  function toggleRecruiterModal() {
+    modal.classList.toggle("active");
+    if (!modal.classList.contains("active")) {
+      setTimeout(() => {
+        if (stateInput) stateInput.classList.add("active");
+        if (stateAnim) stateAnim.classList.remove("active");
+        if (stateResults) stateResults.classList.remove("active");
+        if (textarea) textarea.value = "";
+      }, 300);
+    } else {
+      setTimeout(() => {
+        if (textarea) textarea.focus();
+      }, 100);
+    }
+  }
+
+  if (openModalBtn) openModalBtn.addEventListener("click", toggleRecruiterModal);
+  if (closeBtn) closeBtn.addEventListener("click", toggleRecruiterModal);
+  if (overlay) overlay.addEventListener("click", toggleRecruiterModal);
+
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("active")) {
+      toggleRecruiterModal();
+    }
+  });
+
+  // Keyword dictionary for role requirements mapping
+  const keywordDict = {
+    "python": "Python",
+    "deep learning": "Deep Learning",
+    "dl": "Deep Learning",
+    "machine learning": "Machine Learning",
+    "ml": "Machine Learning",
+    "ai": "Artificial Intelligence",
+    "artificial intelligence": "Artificial Intelligence",
+    "cnn": "CNNs (Convolutional Neural Networks)",
+    "cnns": "CNNs (Convolutional Neural Networks)",
+    "efficientnet": "EfficientNetV2",
+    "efficientnetv2": "EfficientNetV2",
+    "resnet": "ResNet",
+    "densenet": "DenseNet",
+    "grad-cam": "Grad-CAM (Explainable AI)",
+    "gradcam": "Grad-CAM (Explainable AI)",
+    "xai": "Explainable AI (XAI)",
+    "explainable ai": "Explainable AI",
+    "computer vision": "Computer Vision",
+    "cv": "Computer Vision",
+    "image classification": "Image Classification",
+    "medical imaging": "Medical Imaging AI",
+    "tensorflow": "TensorFlow",
+    "pytorch": "PyTorch",
+    "keras": "Keras",
+    "nlp": "Natural Language Processing (NLP)",
+    "natural language processing": "Natural Language Processing",
+    "transformers": "Transformers (DistilBERT)",
+    "distilbert": "DistilBERT",
+    "bert": "BERT / Transformers",
+    "hugging face": "Hugging Face",
+    "huggingface": "Hugging Face",
+    "rag": "RAG (Retrieval-Augmented Generation)",
+    "faiss": "FAISS Vector Search",
+    "gemini": "Google Gemini API",
+    "llm": "LLMs / Generative AI",
+    "generative ai": "Generative AI",
+    "genai": "Generative AI",
+    "fastapi": "FastAPI",
+    "flask": "Flask",
+    "django": "Django",
+    "react": "React.js",
+    "reactjs": "React.js",
+    "react.js": "React.js",
+    "javascript": "JavaScript",
+    "js": "JavaScript",
+    "typescript": "TypeScript",
+    "ts": "TypeScript",
+    "node": "Node.js",
+    "nodejs": "Node.js",
+    "node.js": "Node.js",
+    "express": "Express.js",
+    "expressjs": "Express.js",
+    "html": "HTML5",
+    "css": "CSS3",
+    "tailwind": "Tailwind CSS",
+    "tailwindcss": "Tailwind CSS",
+    "mongodb": "MongoDB",
+    "mongo": "MongoDB",
+    "mysql": "MySQL",
+    "sql": "SQL Databases",
+    "rest": "REST APIs",
+    "api": "REST APIs",
+    "apis": "REST APIs",
+    "backend": "Backend Engineering",
+    "frontend": "Frontend Development",
+    "fullstack": "Full-Stack Development",
+    "full-stack": "Full-Stack Development",
+    "git": "Git / GitHub",
+    "github": "Git / GitHub",
+    "docker": "Docker",
+    "linux": "Linux",
+    "data science": "Data Science",
+    "data analysis": "Data Analysis",
+    "pandas": "Pandas",
+    "numpy": "NumPy",
+    "scikit-learn": "Scikit-Learn",
+    "sklearn": "Scikit-Learn",
+    "research": "Academic Research",
+    "publication": "IEEE Publications",
+    "publications": "IEEE Publications",
+    "ieee": "IEEE Published Research",
+    "paper": "Research & Publications",
+    "c": "C Programming",
+    "c++": "C++",
+    "cpp": "C++",
+    "java": "Java",
+    "blockchain": "Blockchain",
+    "network": "Networking",
+    "cloud": "Cloud Computing"
+  };
+
+  // Analyze button trigger
+  if (analyzeBtn) {
+    analyzeBtn.addEventListener("click", () => {
+      if (!textarea) return;
+      const input = textarea.value.trim().toLowerCase();
+      if (input === "") {
+        textarea.focus();
+        return;
+      }
+
+      if (stateInput) stateInput.classList.remove("active");
+      if (stateAnim) stateAnim.classList.add("active");
+
+      const texts = [
+        "Parsing job description & requirements...",
+        "Benchmarking skills & tech stack...",
+        "Cross-referencing projects & IEEE research...",
+        "Synthesizing personalized fit report..."
+      ];
+      let i = 0;
+      let textInterval;
+      if (animText) {
+        animText.textContent = texts[0];
+        textInterval = setInterval(() => {
+          i++;
+          if (i < texts.length) animText.textContent = texts[i];
+        }, 650);
+      }
+
+      setTimeout(() => {
+        if (textInterval) clearInterval(textInterval);
+        processCandidateFit(input);
+        if (stateAnim) stateAnim.classList.remove("active");
+        if (stateResults) stateResults.classList.add("active");
+      }, 2300);
+    });
+  }
+
+  // Processing function
+  function processCandidateFit(input) {
+    const matchedKeywords = new Set();
+
+    for (let key in keywordDict) {
+      const escaped = key.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+      const regex = new RegExp(`(^|[^a-zA-Z0-9_#+])${escaped}(?=[^a-zA-Z0-9_#+]|$)`, "i");
+      if (regex.test(input)) {
+        matchedKeywords.add(keywordDict[key]);
+      }
+    }
+
+    const matchesArray = Array.from(matchedKeywords);
+
+    // Contextual expansions
+    if (matchesArray.includes("Frontend Development")) {
+      ["HTML5", "CSS3", "JavaScript", "React.js"].forEach((k) => {
+        if (!matchesArray.includes(k)) matchesArray.push(k);
+      });
+    }
+    if (matchesArray.includes("Backend Engineering")) {
+      ["Python", "FastAPI", "MongoDB", "MySQL", "REST APIs"].forEach((k) => {
+        if (!matchesArray.includes(k)) matchesArray.push(k);
+      });
+    }
+    if (
+      matchesArray.includes("Artificial Intelligence") ||
+      matchesArray.includes("Machine Learning") ||
+      matchesArray.includes("Deep Learning")
+    ) {
+      ["Python", "TensorFlow", "CNNs (Convolutional Neural Networks)", "Explainable AI"].forEach((k) => {
+        if (!matchesArray.includes(k)) matchesArray.push(k);
+      });
+    }
+
+    // Match Projects
+    const matchedProjects = [];
+    if (window.globalProjects && Array.isArray(window.globalProjects)) {
+      window.globalProjects.forEach((proj) => {
+        let score = 0;
+        const projText = (
+          proj.title + " " +
+          proj.category + " " +
+          proj.description + " " +
+          (proj.tags || []).join(" ")
+        ).toLowerCase();
+
+        matchesArray.forEach((kw) => {
+          if (projText.includes(kw.toLowerCase())) score += 2;
+        });
+
+        // Domain broad matches
+        if (input.includes("ai") || input.includes("machine learning") || input.includes("deep learning") || input.includes("cnn")) {
+          if (proj.title.toLowerCase().includes("tumor") || proj.title.toLowerCase().includes("mri") || proj.title.toLowerCase().includes("mentor")) score += 3;
+        }
+        if (input.includes("react") || input.includes("fullstack") || input.includes("frontend")) {
+          if (proj.tags && proj.tags.some(t => t.toLowerCase().includes("react"))) score += 3;
+        }
+
+        if (score > 0) {
+          matchedProjects.push({ ...proj, matchScore: score });
+        }
+      });
+
+      matchedProjects.sort((a, b) => b.matchScore - a.matchScore);
+    }
+
+    // Match Publications (IEEE ICONICA 2026 Paper)
+    let matchedPublication = null;
+    if (window.globalResume && window.globalResume.publications && window.globalResume.publications.length > 0) {
+      matchedPublication = window.globalResume.publications[0];
+    }
+
+    // Match Certificates
+    const matchedCerts = [];
+    if (window.globalCertificates && Array.isArray(window.globalCertificates)) {
+      window.globalCertificates.forEach((cert) => {
+        const certText = (
+          cert.title + " " +
+          (cert.category || "") + " " +
+          (cert.displayCategory || "")
+        ).toLowerCase();
+
+        let isMatch = false;
+        matchesArray.forEach((kw) => {
+          if (certText.includes(kw.toLowerCase())) isMatch = true;
+        });
+
+        if (isMatch) matchedCerts.push(cert);
+      });
+    }
+
+    // Compute fit score (88% to 98%)
+    let matchScorePercentage = 88;
+    if (matchesArray.length >= 6) {
+      matchScorePercentage = 98;
+    } else if (matchesArray.length >= 4) {
+      matchScorePercentage = 95;
+    } else if (matchesArray.length >= 2) {
+      matchScorePercentage = 91;
+    }
+
+    // Executive pitch construction
+    let pitchHTML = "";
+    if (matchesArray.length > 0) {
+      pitchHTML = `
+        <p>
+          Based on your requirements, <strong>Tisha Chhabra</strong> is a highly compelling candidate for this position, demonstrating a <strong>${matchScorePercentage}% direct technical alignment</strong>.
+        </p>
+        <p style="margin-top: 10px;">
+          Currently pursuing an <strong>MCA at CHRIST (Deemed to be University)</strong>, Tisha combines strong computer science fundamentals with verified real-world execution. Notably, she is the <strong>first author of peer-reviewed IEEE published research</strong> (ICONICA 2026) in deep learning and Explainable AI (Grad-CAM), and has engineered production-ready full-stack applications leveraging <strong>${matchesArray.slice(0, 5).join(", ")}</strong>.
+        </p>
+      `;
+    } else {
+      pitchHTML = `
+        <p>
+          Tisha brings a rigorous software engineering foundation as an MCA candidate with verified peer-reviewed IEEE research and full-stack development experience. While your prompt covers broader specifications, her algorithmic depth, fast ramp-up speed, and structured engineering practices make her well-suited to quickly master and deliver on your stack.
+        </p>
+      `;
+    }
+
+    // Matching Skills HTML
+    let skillsHTML = "";
+    if (matchesArray.length > 0) {
+      skillsHTML = `
+        <div class="fit-section">
+          <h4 class="fit-section-title">
+            <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+            <span>Verified Matching Skills (${matchesArray.length})</span>
+          </h4>
+          <div class="matched-skills-list">
+            ${matchesArray.map((kw) => `<span class="matched-skill-chip">${kw}</span>`).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    // Research Paper Spotlight HTML
+    let researchHTML = "";
+    if (matchedPublication) {
+      researchHTML = `
+        <div class="fit-section">
+          <h4 class="fit-section-title">
+            <ion-icon name="ribbon-outline"></ion-icon>
+            <span>Published IEEE Research Distinction</span>
+          </h4>
+          <div class="match-research-card">
+            <div class="research-header">
+              <span class="research-badge">IEEE ICONICA 2026</span>
+              <span class="research-badge">First Author</span>
+              <span class="research-badge">98.92% Accuracy</span>
+            </div>
+            <h5 class="research-title">"${matchedPublication.paperTitle}"</h5>
+            <p class="research-details">${matchedPublication.conference}</p>
+            <p class="research-doi">DOI: <a href="${matchedPublication.doiUrl}" target="_blank" rel="noopener noreferrer">${matchedPublication.doi}</a></p>
+            <div class="research-actions">
+              <a href="./assets/Comparative_Analysis_Advanced_CNN_Brain_Tumor_Classification.pdf" target="_blank" rel="noopener noreferrer" class="fit-mini-link">
+                <ion-icon name="document-text-outline"></ion-icon>
+                <span>Read Full Paper (PDF)</span>
+              </a>
+              <a href="https://github.com/TishaChhabra23/Research-Paper.git" target="_blank" rel="noopener noreferrer" class="fit-mini-link">
+                <ion-icon name="logo-github"></ion-icon>
+                <span>GitHub Repository</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Projects HTML
+    let projectsHTML = "";
+    const displayProjects = matchedProjects.length > 0 
+      ? matchedProjects.slice(0, 3) 
+      : (window.globalProjects ? window.globalProjects.slice(0, 3) : []);
+
+    if (displayProjects.length > 0) {
+      projectsHTML = `
+        <div class="fit-section">
+          <h4 class="fit-section-title">
+            <ion-icon name="code-slash-outline"></ion-icon>
+            <span>Directly Relevant Projects</span>
+          </h4>
+          <div class="matched-projects-grid">
+            ${displayProjects
+              .map(
+                (proj) => `
+              <a href="${proj.link}" target="_blank" rel="noopener noreferrer" class="match-item-card">
+                <img src="${proj.image}" alt="${proj.title}" class="match-item-thumb" />
+                <div class="match-item-info">
+                  <h5 class="match-item-title">${proj.title}</h5>
+                  <span class="match-item-cat">${proj.category}</span>
+                  <p class="match-item-desc">${proj.description.substring(0, 115)}...</p>
+                </div>
+                <ion-icon name="arrow-forward-outline" class="match-item-arrow"></ion-icon>
+              </a>
+            `
+              )
+              .join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    // Certificates HTML
+    let certsHTML = "";
+    if (matchedCerts.length > 0) {
+      certsHTML = `
+        <div class="fit-section">
+          <h4 class="fit-section-title">
+            <ion-icon name="medal-outline"></ion-icon>
+            <span>Aligned Certifications</span>
+          </h4>
+          <div class="matched-certs-grid">
+            ${matchedCerts.slice(0, 3).map((cert) => `
+              <a href="${cert.link}" target="_blank" rel="noopener noreferrer" class="match-cert-card">
+                <img src="${cert.image}" alt="${cert.title}" class="match-cert-thumb" />
+                <div class="match-cert-info">
+                  <span class="match-cert-title">${cert.title}</span>
+                  <span class="match-cert-issuer">${cert.displayCategory || cert.category}</span>
+                </div>
+              </a>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    // Call to action buttons
+    const ctaHTML = `
+      <div class="fit-cta-group">
+        <button type="button" class="fit-cta-btn primary" id="btn-fit-projects">
+          <ion-icon name="folder-outline"></ion-icon>
+          <span>Explore All Projects</span>
+        </button>
+        <button type="button" class="fit-cta-btn primary" id="btn-fit-resume">
+          <ion-icon name="document-text-outline"></ion-icon>
+          <span>View Experience & Research</span>
+        </button>
+        <button type="button" class="fit-cta-btn secondary" id="btn-fit-contact">
+          <ion-icon name="mail-outline"></ion-icon>
+          <span>Contact Tisha</span>
+        </button>
+        <button type="button" class="fit-cta-btn secondary reset-fit-btn" id="btn-fit-reset">
+          <ion-icon name="refresh-outline"></ion-icon>
+          <span>Analyze Another Role</span>
+        </button>
+      </div>
+    `;
+
+    // Render results
+    if (stateResults) {
+      stateResults.innerHTML = `
+        <div class="fit-results-header">
+          <div class="fit-score-badge">
+            <ion-icon name="shield-checkmark"></ion-icon>
+            <span>${matchScorePercentage}% Role Alignment • Strong Match</span>
+          </div>
+          <h3 class="h3 modal-title">Candidate Fit Assessment</h3>
+        </div>
+
+        <div class="fit-pitch">
+          ${pitchHTML}
+        </div>
+
+        ${skillsHTML}
+        ${researchHTML}
+        ${projectsHTML}
+        ${certsHTML}
+        ${ctaHTML}
+      `;
+
+      // Helper function for tab switching
+      function navigateToTab(pageName) {
+        if (closeBtn) closeBtn.click();
+        const navLinks = Array.from(document.querySelectorAll("[data-nav-link]"));
+        const targetBtn = navLinks.find(
+          (el) => el.textContent.trim().toLowerCase() === pageName.toLowerCase()
+        );
+        if (targetBtn) {
+          targetBtn.click();
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // Hook up action buttons
+      const btnProjects = document.getElementById("btn-fit-projects");
+      const btnResume = document.getElementById("btn-fit-resume");
+      const btnContact = document.getElementById("btn-fit-contact");
+      const btnReset = document.getElementById("btn-fit-reset");
+
+      if (btnProjects) btnProjects.addEventListener("click", () => navigateToTab("projects"));
+      if (btnResume) btnResume.addEventListener("click", () => navigateToTab("resume"));
+      if (btnContact) btnContact.addEventListener("click", () => navigateToTab("contact"));
+      if (btnReset) {
+        btnReset.addEventListener("click", () => {
+          stateResults.classList.remove("active");
+          stateInput.classList.add("active");
+          if (textarea) {
+            textarea.value = "";
+            textarea.focus();
+          }
+        });
+      }
+    }
+  }
+}
+

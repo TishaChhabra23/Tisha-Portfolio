@@ -18,6 +18,12 @@
   ],
   "experience": [
     {
+      "title": "Lead Research Author — IEEE ICONICA 2026",
+      "duration": "Aug 2025 — Feb 2026",
+      "subheading": "Comparative Analysis of Advanced CNNs for Multi-Class Brain Tumor MRI Classification",
+      "description": "First author of peer-reviewed research published in the Proceedings of the 2026 IEEE International Conference on Next-Gen Intelligent Computing and Applications (DOI: 10.1109/ICONICA70605.2026.11736701). Evaluated transfer learning across EfficientNetV2, DenseNet121, and ResNet50V2 on 7,000+ MRI slices, achieving 98.92% accuracy, 0.9999 Macro-AUC, zero false-negative normal tissue classifications, and Grad-CAM spatial interpretability."
+    },
+    {
       "title": "ORDNANCE FACTORY, DEFENCE OF INDIA",
       "duration": "June 2024 — July 2024",
       "description": "Interned in the IT Department at the Ordnance Factory (Defence of India), working with database systems, learning data handling techniques, and supporting basic IT processes."
@@ -50,8 +56,12 @@
   ],
   "skills": [
     {
-      "name": "Python",
-      "value": 80
+      "name": "Python & Deep Learning",
+      "value": 90
+    },
+    {
+      "name": "TensorFlow / Keras",
+      "value": 85
     },
     {
       "name": "C",

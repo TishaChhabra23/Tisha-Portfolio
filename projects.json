@@ -1,12 +1,30 @@
 [
   {
+    "title": "Brain Tumor MRI Classification & Benchmark (IEEE ICONICA 2026)",
+    "category": "Deep Learning & Medical AI",
+    "date": "Aug 2025 - Feb 2026",
+    "datetime": "2026-02-01",
+    "image": "./images/project-brain-tumor-mri.jpg",
+    "link": "https://github.com/TishaChhabra23/Research-Paper.git",
+    "description": "Published IEEE research (DOI: 10.1109/ICONICA70605.2026.11736701) benchmarking advanced CNN architectures (EfficientNetV2, DenseNet121, ResNet50V2) for multi-class brain MRI diagnosis (Glioma, Meningioma, Pituitary, Normal). Attained state-of-the-art 98.92% accuracy, 0.9999 Macro-AUC, 100% specificity on healthy tissue, and Grad-CAM spatial heatmap localization for clinical explainability.",
+    "tags": [
+      "IEEE ICONICA 2026",
+      "EfficientNetV2",
+      "Grad-CAM (XAI)",
+      "TensorFlow",
+      "Transfer Learning",
+      "98.92% Acc"
+    ]
+  },
+  {
     "title": "AI Career Mentor",
     "category": "Personalized AI Platform",
     "date": "Jan 2025 - Present",
     "datetime": "2025-01-01",
     "image": "./images/project-ai-career-mentor.jpg",
     "link": "https://github.com/TishaChhabra23/AI-Career-Mentor.git",
-    "description": "Architected a full-stack AI career mentoring application powered by Google Gemini API, React 19, TypeScript, Vite, and Node.js/Express with MongoDB Atlas. Features personalized career roadmaps, skill radar assessments, and dynamic resume optimization."
+    "description": "Architected a full-stack AI career mentoring application powered by Google Gemini API, React 19, TypeScript, Vite, and Node.js/Express with MongoDB Atlas. Features personalized career roadmaps, skill radar assessments, and dynamic resume optimization.",
+    "tags": ["React 19", "Gemini AI", "FastAPI", "TypeScript", "Vite", "MongoDB Atlas"]
   },
   {
     "title": "AI Study Portal",
@@ -15,7 +33,8 @@
     "datetime": "2024-08-01",
     "image": "./images/project-study-portal.jpg",
     "link": "https://github.com/Rohitpvt/Study-Portal.git",
-    "description": "Built a collaborative academic library and syllabus QA portal with FastAPI, React 18, and an AI-powered FAISS RAG engine. Includes hierarchical course discovery, domain-restricted student authentication, vetted peer contributions, and admin review workflows."
+    "description": "Built a collaborative academic library and syllabus QA portal with FastAPI, React 18, and an AI-powered FAISS RAG engine. Includes hierarchical course discovery, domain-restricted student authentication, vetted peer contributions, and admin review workflows.",
+    "tags": ["React 18", "FastAPI", "FAISS RAG", "TailwindCSS", "EdTech"]
   },
   {
     "title": "Financial Fake News Detector",
@@ -24,7 +43,8 @@
     "datetime": "2024-05-01",
     "image": "./images/project-fake-news.jpg",
     "link": "https://github.com/Suresh-Nagvanshi/fake-financial-news-prediction.git",
-    "description": "Engineered an intelligent financial misinformation detection web app utilizing a fine-tuned DistilBERT transformer model. Provides real-time news credibility prediction with confidence scoring, market sentiment classification, and secure history logging with FastAPI & MongoDB."
+    "description": "Engineered an intelligent financial misinformation detection web app utilizing a fine-tuned DistilBERT transformer model. Provides real-time news credibility prediction with confidence scoring, market sentiment classification, and secure history logging with FastAPI & MongoDB.",
+    "tags": ["DistilBERT", "Hugging Face", "NLP Transformers", "FastAPI", "Financial AI"]
   },
   {
     "title": "LandfillPlume-AI Gas Forecasting",
@@ -33,6 +53,7 @@
     "datetime": "2024-02-01",
     "image": "./images/project-poisonous-gas.jpg",
     "link": "https://github.com/Rohitpvt/Poisonous-Gas-Identification-Project.git",
-    "description": "Developed a machine learning and Explainable AI (SHAP) platform fusing satellite methane observations with 70,000+ DPCC ground sensor records. Features real-time Gaussian plume dispersion modeling, toxic gas concentration forecasting (LightGBM/XGBoost), and resident safe-zone alerts."
+    "description": "Developed a machine learning and Explainable AI (SHAP) platform fusing satellite methane observations with 70,000+ DPCC ground sensor records. Features real-time Gaussian plume dispersion modeling, toxic gas concentration forecasting (LightGBM/XGBoost), and resident safe-zone alerts.",
+    "tags": ["LightGBM", "SHAP XAI", "Satellite GIS", "Plume Modeling", "Environmental AI"]
   }
 ]

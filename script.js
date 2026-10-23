@@ -314,8 +314,17 @@ const loadProjects = async function () {
     const projectsList = document.querySelector("[data-projects-list]");
     if (projectsList && Array.isArray(projects)) {
       projectsList.innerHTML = projects
-        .map(
-          (proj) => `
+        .map((proj) => {
+          const tagsHtml =
+            proj.tags && Array.isArray(proj.tags)
+              ? `<div class="project-tags">` +
+                proj.tags
+                  .map((tag) => `<span class="project-tag">${tag}</span>`)
+                  .join("") +
+                `</div>`
+              : "";
+
+          return `
         <li class="blog-post-item">
           <a href="${proj.link}" target="_blank" rel="noopener noreferrer">
             <figure class="blog-banner-box">
@@ -329,11 +338,18 @@ const loadProjects = async function () {
               </div>
               <h3 class="h3 blog-item-title">${proj.title}</h3>
               <p class="blog-text">${proj.description}</p>
+              <div class="project-card-footer">
+                ${tagsHtml}
+                <div class="project-action-link">
+                  <span>View on GitHub</span>
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                </div>
+              </div>
             </div>
           </a>
         </li>
-      `
-        )
+      `;
+        })
         .join("");
     }
     console.log("Projects data loaded successfully");

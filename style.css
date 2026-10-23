@@ -3261,6 +3261,18 @@ textarea.form-input::-webkit-resizer {
   padding: 6px 14px;
   border-radius: 12px;
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: all var(--transition-1);
+}
+
+.matched-skill-chip.transferable {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #7dd3fc;
+}
+
+.fit-growth-box strong {
+  color: var(--white-1);
+  font-weight: var(--fw-600);
 }
 
 /* Research Paper Spotlight Card */

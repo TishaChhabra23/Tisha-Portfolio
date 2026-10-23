@@ -763,7 +763,7 @@ function initRecruiterFitAnalyzer() {
       }
     }
 
-    // 3. Smart Dynamic Role Title Detection
+    // 3. Smart Dynamic Role Title Detection (Specific patterns + universal extractor)
     const titlePatterns = [
       { pattern: /ai\s*\/\s*ml\s*(engineer|developer|specialist|intern)/i, title: "AI / ML Engineer" },
       { pattern: /machine\s*learning\s*(engineer|developer|specialist|intern)/i, title: "Machine Learning Engineer" },
@@ -773,6 +773,7 @@ function initRecruiterFitAnalyzer() {
       { pattern: /research\s*(engineer|associate|scientist)/i, title: "Computer Science Research Engineer" },
       { pattern: /data\s*scientist/i, title: "Data Scientist" },
       { pattern: /data\s*analyst/i, title: "Data Analyst & Analytics Engineer" },
+      { pattern: /data\s*engineer/i, title: "Data Engineer" },
       { pattern: /full[\s-]stack\s*(engineer|developer|software\s*engineer)/i, title: "Full-Stack Software Developer" },
       { pattern: /react\s*(developer|engineer|frontend\s*developer)/i, title: "React & Frontend Developer" },
       { pattern: /front[\s-]end\s*(developer|engineer|software\s*engineer)/i, title: "Frontend & UI Developer" },
@@ -782,6 +783,9 @@ function initRecruiterFitAnalyzer() {
       { pattern: /devops\s*(engineer|specialist)/i, title: "DevOps & Cloud Engineer" },
       { pattern: /mobile\s*(developer|engineer|app\s*developer)/i, title: "Mobile Application Developer" },
       { pattern: /android\s*(developer|engineer)/i, title: "Android Application Developer" },
+      { pattern: /ios\s*(developer|engineer)/i, title: "iOS Application Developer" },
+      { pattern: /flutter\s*(developer|engineer)/i, title: "Flutter Application Developer" },
+      { pattern: /qa\s*(engineer|analyst|tester)/i, title: "QA & Test Automation Engineer" },
       { pattern: /software\s*development\s*engineer|sde/i, title: "Software Development Engineer (SDE)" },
       { pattern: /software\s*engineer/i, title: "Software Engineer" },
       { pattern: /software\s*developer/i, title: "Software Developer" },
@@ -793,6 +797,17 @@ function initRecruiterFitAnalyzer() {
       if (item.pattern.test(rawInput)) {
         detectedRoleTitle = item.title;
         break;
+      }
+    }
+
+    // Universal title extractor for any role (e.g. "Looking for a Ruby on Rails Developer", "Hiring a Rust Engineer", "Salesforce Consultant")
+    if (!detectedRoleTitle) {
+      const genericTitleMatch = rawInput.match(
+        /(?:looking\s+for\s+(?:an?\s+)?|hiring\s+(?:an?\s+)?|seeking\s+(?:an?\s+)?|position\s*:\s*|role\s*:\s*|job\s*title\s*:\s*|need\s+(?:an?\s+)?|want\s+(?:an?\s+)?)([a-zA-Z0-9#+.\s\/-]{3,35}?(?:developer|engineer|specialist|architect|programmer|consultant|analyst|administrator|intern|lead|manager))/i
+      );
+      if (genericTitleMatch && genericTitleMatch[1]) {
+        const rawTitle = genericTitleMatch[1].trim();
+        detectedRoleTitle = rawTitle.charAt(0).toUpperCase() + rawTitle.slice(1);
       }
     }
 
@@ -811,73 +826,127 @@ function initRecruiterFitAnalyzer() {
       detectedRoleTitle = defaultTitles[primaryTrack] || "Software Engineering Candidate";
     }
 
-    // 4. Transparent Adjacent Technologies Detection
-    const externalTools = [
+    // 4. Comprehensive Tech Catalog (Captures 65+ modern & adjacent technologies)
+    const expandedTechCatalog = [
+      { key: "ruby", label: "Ruby" },
+      { key: "rails", label: "Ruby on Rails" },
+      { key: "ruby on rails", label: "Ruby on Rails" },
+      { key: "rust", label: "Rust" },
+      { key: "golang", label: "Go / GoLang" },
+      { key: "go", label: "GoLang" },
+      { key: "php", label: "PHP" },
+      { key: "laravel", label: "Laravel" },
+      { key: "c#", label: "C#" },
+      { key: "csharp", label: "C#" },
+      { key: ".net", label: ".NET Core" },
+      { key: "asp.net", label: "ASP.NET" },
+      { key: "blazor", label: "Blazor" },
+      { key: "swift", label: "Swift" },
+      { key: "swiftui", label: "SwiftUI" },
+      { key: "kotlin", label: "Kotlin" },
+      { key: "flutter", label: "Flutter" },
+      { key: "dart", label: "Dart" },
+      { key: "scala", label: "Scala" },
+      { key: "elixir", label: "Elixir" },
+      { key: "haskell", label: "Haskell" },
+      { key: "solidity", label: "Solidity" },
+      { key: "web3", label: "Web3" },
+      { key: "salesforce", label: "Salesforce" },
+      { key: "apex", label: "Apex" },
+      { key: "sap", label: "SAP" },
+      { key: "cobol", label: "COBOL" },
+      { key: "mainframe", label: "Mainframe" },
+      { key: "r", label: "R Programming" },
+      { key: "julia", label: "Julia" },
+      { key: "perl", label: "Perl" },
       { key: "aws", label: "AWS Cloud" },
+      { key: "azure", label: "Microsoft Azure" },
+      { key: "gcp", label: "Google Cloud Platform" },
       { key: "docker", label: "Docker" },
       { key: "kubernetes", label: "Kubernetes" },
       { key: "k8s", label: "Kubernetes" },
-      { key: "golang", label: "Go / GoLang" },
-      { key: "go", label: "GoLang" },
-      { key: "c#", label: "C#" },
-      { key: "csharp", label: "C#" },
+      { key: "terraform", label: "Terraform" },
+      { key: "ansible", label: "Ansible" },
+      { key: "jenkins", label: "Jenkins" },
+      { key: "ci/cd", label: "CI/CD Pipelines" },
+      { key: "graphql", label: "GraphQL" },
+      { key: "grpc", label: "gRPC" },
+      { key: "kafka", label: "Apache Kafka" },
+      { key: "rabbitmq", label: "RabbitMQ" },
+      { key: "redis", label: "Redis" },
+      { key: "postgresql", label: "PostgreSQL" },
+      { key: "postgres", label: "PostgreSQL" },
+      { key: "sqlite", label: "SQLite" },
+      { key: "oracle", label: "Oracle DB" },
+      { key: "cassandra", label: "Cassandra" },
+      { key: "elasticsearch", label: "Elasticsearch" },
+      { key: "snowflake", label: "Snowflake" },
+      { key: "spark", label: "Apache Spark" },
+      { key: "hadoop", label: "Hadoop" },
+      { key: "tableau", label: "Tableau" },
+      { key: "powerbi", label: "Power BI" },
+      { key: "spring", label: "Spring Boot" },
+      { key: "spring boot", label: "Spring Boot" },
       { key: "angular", label: "Angular" },
       { key: "vue", label: "Vue.js" },
-      { key: "graphql", label: "GraphQL" },
-      { key: "kafka", label: "Apache Kafka" },
-      { key: "spring", label: "Spring Boot" },
-      { key: "redis", label: "Redis" },
-      { key: "flutter", label: "Flutter" },
-      { key: "swift", label: "Swift" },
-      { key: "azure", label: "Microsoft Azure" },
-      { key: "gcp", label: "Google Cloud Platform" },
-      { key: "ci/cd", label: "CI/CD Pipelines" },
-      { key: "terraform", label: "Terraform" }
+      { key: "svelte", label: "Svelte" },
+      { key: "unity", label: "Unity" },
+      { key: "unreal", label: "Unreal Engine" },
+      { key: "figma", label: "Figma" }
     ];
 
     const detectedGrowthTools = [];
-    externalTools.forEach((t) => {
+    expandedTechCatalog.forEach((t) => {
       if (hasWord(lowerInput, t.key) && !detectedGrowthTools.includes(t.label)) {
         detectedGrowthTools.push(t.label);
       }
     });
 
-    // 5. Dynamic Fit Scoring (Realistic & Differentiated: 72% - 98%)
+    // 5. Positive Fit Scoring (Always encouraging & confident: 84% - 98%)
     let matchScorePercentage = 85;
     const matchCount = matchesArray.length;
 
-    if (primaryTrack === "aiml") {
-      matchScorePercentage = matchCount >= 5 ? 98 : (matchCount >= 3 ? 94 : 90);
-    } else if (primaryTrack === "research") {
-      matchScorePercentage = matchCount >= 4 ? 98 : (matchCount >= 2 ? 93 : 89);
-    } else if (primaryTrack === "fullstack") {
-      matchScorePercentage = matchCount >= 4 ? 96 : (matchCount >= 2 ? 92 : 88);
-    } else if (primaryTrack === "backend") {
-      matchScorePercentage = matchCount >= 4 ? 95 : (matchCount >= 2 ? 91 : 86);
-    } else if (primaryTrack === "frontend") {
-      matchScorePercentage = matchCount >= 3 ? 94 : 88;
-    } else if (primaryTrack === "datascience") {
-      matchScorePercentage = matchCount >= 3 ? 93 : 87;
-    } else if (primaryTrack === "mobile") {
-      matchScorePercentage = matchCount >= 2 ? 86 : 80;
-    } else if (primaryTrack === "cloud_devops") {
-      matchScorePercentage = matchCount >= 2 ? 85 : 79;
+    if (matchCount > 0) {
+      if (primaryTrack === "aiml") {
+        matchScorePercentage = matchCount >= 5 ? 98 : (matchCount >= 3 ? 94 : 90);
+      } else if (primaryTrack === "research") {
+        matchScorePercentage = matchCount >= 4 ? 98 : (matchCount >= 2 ? 93 : 89);
+      } else if (primaryTrack === "fullstack") {
+        matchScorePercentage = matchCount >= 4 ? 96 : (matchCount >= 2 ? 92 : 88);
+      } else if (primaryTrack === "backend") {
+        matchScorePercentage = matchCount >= 4 ? 95 : (matchCount >= 2 ? 91 : 86);
+      } else if (primaryTrack === "frontend") {
+        matchScorePercentage = matchCount >= 3 ? 94 : 88;
+      } else if (primaryTrack === "datascience") {
+        matchScorePercentage = matchCount >= 3 ? 93 : 87;
+      } else if (primaryTrack === "mobile") {
+        matchScorePercentage = matchCount >= 2 ? 88 : 84;
+      } else if (primaryTrack === "cloud_devops") {
+        matchScorePercentage = matchCount >= 2 ? 88 : 84;
+      } else {
+        matchScorePercentage = matchCount >= 4 ? 90 : (matchCount >= 2 ? 86 : 84);
+      }
     } else {
-      matchScorePercentage = matchCount >= 4 ? 89 : (matchCount >= 2 ? 83 : 76);
+      // Unlisted / novel stack: High-velocity ramp-up score! Always positive and encouraging
+      matchScorePercentage = detectedGrowthTools.length >= 3 ? 84 : 86;
     }
 
-    if (detectedGrowthTools.length >= 3) {
-      matchScorePercentage = Math.max(matchScorePercentage - 8, 72);
-    } else if (detectedGrowthTools.length >= 1) {
-      matchScorePercentage = Math.max(matchScorePercentage - 4, 76);
-    }
-
-    // 6. Role-Tailored Executive Pitch & Domain Bullet Points (9 distinct tracks)
+    // 6. Role-Tailored Executive Pitch & Domain Bullet Points
     let pitchHeadline = "";
     let pitchBody = "";
     let domainBulletPoints = [];
 
-    if (primaryTrack === "aiml") {
+    if (matchesArray.length === 0) {
+      // Positive adaptive pitch for novel / unlisted stacks
+      const techDisplay = detectedGrowthTools.length > 0 ? detectedGrowthTools.join(", ") : "your specified technology stack";
+      pitchHeadline = `High-velocity technical adaptability, versatile engineering foundations, and rapid onboarding.`;
+      pitchBody = `For this role, Tisha represents a high-potential, rapidly adaptable software engineer with a rigorous Computer Science foundation. Currently pursuing a Master of Computer Applications (MCA) at CHRIST (Deemed to be University), she has proven versatility spanning low-level systems programming in C, enterprise Object-Oriented design in Java, asynchronous API development in Python (FastAPI), modern frontend engineering in React 19 / TypeScript, and cloud database management. Rather than being constrained to a single tech stack, her deep grasp of Data Structures, Algorithms, and Software Architecture enables her to achieve production-grade velocity on ${techDisplay} with minimal ramp-up time.`;
+      domainBulletPoints = [
+        "Proven multi-language versatility across C, Java, Python, JavaScript, and TypeScript.",
+        "Solid theoretical grounding in Data Structures, Algorithms, and Object-Oriented System Architecture.",
+        "Disciplined learner capable of mastering new frameworks, APIs, and domain tools within days."
+      ];
+    } else if (primaryTrack === "aiml") {
       pitchHeadline = `High-impact technical alignment for AI, Machine Learning, and Deep Learning engineering.`;
       pitchBody = `For AI and Machine Learning engineering, Tisha offers verified, high-level competency in deep learning architectures, convolutional neural networks, and model explainability. As first author of peer-reviewed research published by IEEE (ICONICA 2026), she trained and benchmarked advanced CNN backbones (EfficientNetV2, DenseNet121, ResNet50V2), achieving 98.92% accuracy, 0.9999 Macro-AUC, zero false negatives on healthy scans, and Grad-CAM visual explainability. Furthermore, her repository portfolio demonstrates practical deployment with transformer models (DistilBERT), Google Gemini APIs, and gradient boosting (LightGBM/SHAP).`;
       domainBulletPoints = [
@@ -1009,11 +1078,10 @@ function initRecruiterFitAnalyzer() {
         if (proj.title.includes("Career Mentor")) pScore += 20;
         if (proj.title.includes("LandfillPlume")) pScore += 14;
       } else {
-        if (hasWord(lowerInput, "react") && text.includes("react")) pScore += 10;
-        if (hasWord(lowerInput, "python") && text.includes("python")) pScore += 10;
-        if (hasWord(lowerInput, "api") && text.includes("api")) pScore += 8;
-        if (hasWord(lowerInput, "sql") && text.includes("sql")) pScore += 8;
-        if (hasWord(lowerInput, "mongo") && text.includes("mongo")) pScore += 8;
+        // High complexity systems engineering projects
+        if (proj.title.includes("Career Mentor")) pScore += 18;
+        if (proj.title.includes("Study Portal")) pScore += 16;
+        if (proj.title.includes("Brain Tumor")) pScore += 14;
       }
 
       return { ...proj, relevanceScore: pScore };
@@ -1023,7 +1091,6 @@ function initRecruiterFitAnalyzer() {
     const topProjects = scoredProjects.slice(0, 3);
 
     // 8. Context-Sensitive Research Spotlight (STRICT word boundary checking)
-    // Only displayed when role explicitly concerns AI/ML/CV or research papers!
     const isResearchRelevant = (
       primaryTrack === "aiml" ||
       primaryTrack === "research" ||
@@ -1086,23 +1153,37 @@ function initRecruiterFitAnalyzer() {
       matchedCerts.sort((a, b) => b.certScore - a.certScore);
     }
 
-    // Growth box HTML
+    // Growth box HTML (Always shown if adjacent tools or unlisted skills are provided)
     let growthHTML = "";
     if (detectedGrowthTools.length > 0) {
       growthHTML = `
         <div class="fit-growth-box">
           <div class="growth-header">
             <ion-icon name="trending-up-outline"></ion-icon>
-            <span>Adjacent Requirements & Rapid Ramp-Up</span>
+            <span>Accelerated Ramp-Up & Technology Translation</span>
           </div>
           <p>
-            Your description mentions <strong>${detectedGrowthTools.join(", ")}</strong>. While Tisha's primary production code emphasizes Python, React, FastAPI, and Deep Learning, her solid computer science foundation (algorithms, system architecture, relational database design) enables accelerated ramp-up to achieve production velocity on these adjacent tools.
+            Your requirements emphasize <strong>${detectedGrowthTools.join(", ")}</strong>. While Tisha's primary production code focuses on Python, React 19, FastAPI, Node.js, and Deep Learning, her solid computer science foundation (algorithms, system architecture, relational database design) enables accelerated ramp-up to achieve production velocity on these technologies with minimal onboarding friction.
+          </p>
+        </div>
+      `;
+    } else if (matchesArray.length === 0) {
+      const customWords = rawInput.split(/[\s,;/]+/).filter(w => w.length > 2 && !["and", "the", "with", "for", "looking", "hiring", "seeking", "need", "developer", "engineer", "must", "have"].includes(w.toLowerCase()));
+      const customSample = customWords.slice(0, 4).join(", ");
+      growthHTML = `
+        <div class="fit-growth-box">
+          <div class="growth-header">
+            <ion-icon name="trending-up-outline"></ion-icon>
+            <span>High-Velocity Ramp-Up & Adaptability</span>
+          </div>
+          <p>
+            Your description highlights specialized technologies${customSample ? ` including <strong>${customSample}</strong>` : ""}. Tisha's strong Computer Science pedigree—currently pursuing an MCA at CHRIST (Deemed to be University)—equips her with deep foundational mastery in Object-Oriented Design, Data Structures & Algorithms, and distributed system architectures to rapidly attain production velocity on this tech stack.
           </p>
         </div>
       `;
     }
 
-    // Matching Skills HTML
+    // Skills HTML (Direct matches OR Transferable core competencies)
     let skillsHTML = "";
     if (matchesArray.length > 0) {
       skillsHTML = `
@@ -1113,6 +1194,28 @@ function initRecruiterFitAnalyzer() {
           </h4>
           <div class="matched-skills-list">
             ${matchesArray.map((kw) => `<span class="matched-skill-chip">${kw}</span>`).join("")}
+          </div>
+        </div>
+      `;
+    } else {
+      const transferableSkills = [
+        "Object-Oriented Programming (OOP)",
+        "Data Structures & Algorithms (DSA)",
+        "System Architecture & Modular Design",
+        "Relational & NoSQL Schema Design",
+        "RESTful API Architecture",
+        "Git & GitHub Version Control",
+        "Rapid Framework & Language Adoption",
+        "Agile Full-Lifecycle Delivery"
+      ];
+      skillsHTML = `
+        <div class="fit-section">
+          <h4 class="fit-section-title">
+            <ion-icon name="flash-outline"></ion-icon>
+            <span>Transferable Core Engineering Strengths (${transferableSkills.length})</span>
+          </h4>
+          <div class="matched-skills-list">
+            ${transferableSkills.map((kw) => `<span class="matched-skill-chip transferable">${kw}</span>`).join("")}
           </div>
         </div>
       `;
@@ -1181,7 +1284,7 @@ function initRecruiterFitAnalyzer() {
       `;
     }
 
-    // Certificates HTML (Ranked specifically for this role!)
+    // Certificates HTML (Ranked specifically for this role or Foundational Credentials)
     let certsHTML = "";
     if (matchedCerts.length > 0) {
       certsHTML = `
@@ -1192,6 +1295,27 @@ function initRecruiterFitAnalyzer() {
           </h4>
           <div class="matched-certs-grid">
             ${matchedCerts.slice(0, 3).map((cert) => `
+              <a href="${cert.link}" target="_blank" rel="noopener noreferrer" class="match-cert-card">
+                <img src="${cert.image}" alt="${cert.title}" class="match-cert-thumb" />
+                <div class="match-cert-info">
+                  <span class="match-cert-title">${cert.title}</span>
+                  <span class="match-cert-issuer">${cert.displayCategory || cert.category}</span>
+                </div>
+              </a>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    } else if (window.globalCertificates && window.globalCertificates.length > 0) {
+      const fallbackCerts = window.globalCertificates.slice(0, 3);
+      certsHTML = `
+        <div class="fit-section">
+          <h4 class="fit-section-title">
+            <ion-icon name="medal-outline"></ion-icon>
+            <span>Foundational Academic & Engineering Credentials</span>
+          </h4>
+          <div class="matched-certs-grid">
+            ${fallbackCerts.map((cert) => `
               <a href="${cert.link}" target="_blank" rel="noopener noreferrer" class="match-cert-card">
                 <img src="${cert.image}" alt="${cert.title}" class="match-cert-thumb" />
                 <div class="match-cert-info">

@@ -16,12 +16,92 @@
       "description": "Completed Senior Secondary Education focusing on core subjects with an emphasis on analytical and computer skills."
     }
   ],
-  "experience": [
+  "publications": [
     {
       "title": "Lead Research Author — IEEE ICONICA 2026",
+      "duration": "Published & Presented | August 2026",
+      "paperTitle": "Comparative Analysis of Advanced CNN Architectures for Multi-Class Brain Tumor Classification Using MRI",
+      "conference": "2026 IEEE International Conference on Next-Gen Intelligent Computing and Applications (ICONICA 2026)",
+      "paperId": "Paper ID: 597 | Track 2: Artificial Intelligence and Machine Learning",
+      "authors": "Tisha Chhabra (First Author), Dr. Kamal Upreti, Dr. Varuna Gupta",
+      "affiliation": "Department of Computer Science, CHRIST (Deemed to be University), Bengaluru",
+      "doi": "10.1109/ICONICA70605.2026.11736701",
+      "doiUrl": "https://doi.org/10.1109/ICONICA70605.2026.11736701",
+      "badges": [
+        "IEEE Published",
+        "First Author",
+        "DOI: 10.1109/ICONICA70605.2026.11736701",
+        "98.92% Accuracy",
+        "0.9999 Macro-AUC",
+        "Grad-CAM (XAI)",
+        "EfficientNetV2"
+      ],
+      "highlights": [
+        "First author of peer-reviewed research benchmarking advanced CNN backbones (EfficientNetV2, DenseNet121, ResNet50V2) for automated 4-class brain MRI diagnosis (Glioma, Meningioma, Pituitary, Normal Brain).",
+        "Attained premier benchmark performance with EfficientNetV2: 98.92% test accuracy, 0.9999 Macro-AUC, and the lowest misclassification rate across all tumor categories.",
+        "Demonstrated 100% specificity/recall on normal brain tissue, guaranteeing zero false-negative screenings on healthy individuals.",
+        "Implemented Gradient-weighted Class Activation Mapping (Grad-CAM) to generate spatial heatmaps on convolutional feature maps, verifying visual explainability and clinical transparency.",
+        "Engineered unified classification head with dual global pooling (GAP + GMP concatenation), categorical label smoothing (0.10), cosine decay learning rate scheduling, and 8-fold Test-Time Augmentation (TTA)."
+      ],
+      "links": [
+        {
+          "label": "Read Paper (PDF)",
+          "url": "./assets/Comparative_Analysis_Advanced_CNN_Brain_Tumor_Classification.pdf",
+          "icon": "document-text-outline"
+        },
+        {
+          "label": "Presentation Certificate",
+          "url": "./assets/ICONICA_2026_Presentation_Certificate_Tisha_Chhabra.pdf",
+          "icon": "ribbon-outline"
+        },
+        {
+          "label": "GitHub Repository",
+          "url": "https://github.com/TishaChhabra23/Research-Paper.git",
+          "icon": "logo-github"
+        },
+        {
+          "label": "IEEE DOI / Xplore",
+          "url": "https://doi.org/10.1109/ICONICA70605.2026.11736701",
+          "icon": "globe-outline"
+        }
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "title": "Lead Research Author — IEEE Publication",
       "duration": "Aug 2025 — Feb 2026",
-      "subheading": "Comparative Analysis of Advanced CNNs for Multi-Class Brain Tumor MRI Classification",
-      "description": "First author of peer-reviewed research published in the Proceedings of the 2026 IEEE International Conference on Next-Gen Intelligent Computing and Applications (DOI: 10.1109/ICONICA70605.2026.11736701). Evaluated transfer learning across EfficientNetV2, DenseNet121, and ResNet50V2 on 7,000+ MRI slices, achieving 98.92% accuracy, 0.9999 Macro-AUC, zero false-negative normal tissue classifications, and Grad-CAM spatial interpretability."
+      "subheading": "Department of Computer Science, CHRIST (Deemed to be University), Bengaluru",
+      "description": "First author of peer-reviewed research published in the Proceedings of the 2026 IEEE International Conference on Next-Gen Intelligent Computing and Applications (DOI: 10.1109/ICONICA70605.2026.11736701). Evaluated transfer learning across EfficientNetV2, DenseNet121, and ResNet50V2 on 7,000+ MRI slices, achieving 98.92% accuracy, 0.9999 Macro-AUC, zero false negatives on healthy scans, and Grad-CAM spatial interpretability.",
+      "badges": [
+        "IEEE Published",
+        "First Author",
+        "DOI: 10.1109/ICONICA70605.2026.11736701",
+        "98.92% Accuracy",
+        "0.9999 Macro-AUC"
+      ],
+      "highlights": [
+        "First-authored and presented peer-reviewed research benchmarking CNN backbones for 4-class brain tumor MRI diagnosis (Glioma, Meningioma, Pituitary, Normal).",
+        "Engineered transfer learning pipeline achieving 98.92% accuracy, 0.9999 Macro-AUC, and 100% healthy scan specificity.",
+        "Integrated Grad-CAM (XAI) feature activation heatmaps verifying clinical interpretability for radiologist review workflows."
+      ],
+      "links": [
+        {
+          "label": "Read Paper (PDF)",
+          "url": "./assets/Comparative_Analysis_Advanced_CNN_Brain_Tumor_Classification.pdf",
+          "icon": "document-text-outline"
+        },
+        {
+          "label": "Presentation Certificate",
+          "url": "./assets/ICONICA_2026_Presentation_Certificate_Tisha_Chhabra.pdf",
+          "icon": "ribbon-outline"
+        },
+        {
+          "label": "GitHub Repository",
+          "url": "https://github.com/TishaChhabra23/Research-Paper.git",
+          "icon": "logo-github"
+        }
+      ]
     },
     {
       "title": "ORDNANCE FACTORY, DEFENCE OF INDIA",

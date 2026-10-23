@@ -937,6 +937,87 @@ main {
   line-height: 1.6;
 }
 
+/* Timeline enhancements for research & experience */
+.timeline-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 10px;
+}
+
+.timeline-badge {
+  background: rgba(255, 219, 112, 0.08);
+  border: 1px solid rgba(255, 219, 112, 0.22);
+  color: var(--orange-yellow-crayola) !important;
+  font-size: 11px;
+  font-weight: var(--fw-500);
+  padding: 3px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.2px;
+  display: inline-block;
+  line-height: 1.4;
+}
+
+.timeline-highlights {
+  margin: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-left: 2px;
+}
+
+.timeline-highlights li {
+  color: var(--light-gray);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.timeline-highlights .highlight-bullet {
+  color: var(--orange-yellow-crayola);
+  font-size: 11px;
+  line-height: 1.6;
+  flex-shrink: 0;
+}
+
+.timeline-action-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.timeline-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--border-gradient-onyx);
+  border: 1px solid rgba(255, 219, 112, 0.3);
+  color: var(--orange-yellow-crayola) !important;
+  font-size: 12px;
+  font-weight: var(--fw-500);
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: var(--transition-1);
+}
+
+.timeline-link-btn:hover {
+  background: rgba(255, 219, 112, 0.15);
+  border-color: var(--orange-yellow-crayola);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.timeline-link-btn ion-icon {
+  font-size: 14px;
+}
+
 /**
  * skills
  */

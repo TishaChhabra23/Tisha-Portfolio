@@ -195,38 +195,86 @@ const loadResume = async function () {
         .join("");
     }
 
+    // Helper function to render rich timeline items (supports badges, highlights, links, etc.)
+    const renderTimelineItem = (item) => {
+      let extra = "";
+      if (item.subheading) {
+        extra += `<p class="timeline-text"><i><b>${item.subheading}</b></i></p>`;
+      }
+      if (item.paperTitle) {
+        extra += `<p class="timeline-text" style="color: #fff; font-size: 14px; margin-top: 4px;"><i><b>"${item.paperTitle}"</b></i></p>`;
+      }
+      if (item.authors) {
+        extra += `<p class="timeline-text" style="margin-top: 4px;"><small style="color: var(--light-gray-70)"><b>Authors:</b> ${item.authors}${item.affiliation ? ` (${item.affiliation})` : ""}</small></p>`;
+      }
+      if (item.conference) {
+        extra += `<p class="timeline-text"><small style="color: var(--light-gray-70)"><b>Published in:</b> ${item.conference}${item.paperId ? ` — ${item.paperId}` : ""}</small></p>`;
+      }
+      if (item.badges && Array.isArray(item.badges)) {
+        extra += `<div class="timeline-badges">` +
+          item.badges.map((b) => `<span class="timeline-badge">${b}</span>`).join("") +
+          `</div>`;
+      }
+      if (item.description) {
+        extra += `<p class="timeline-text">${item.description}</p>`;
+      }
+      if (item.highlights && Array.isArray(item.highlights)) {
+        extra += `<ul class="timeline-highlights">` +
+          item.highlights
+            .map(
+              (h) => `<li><span class="highlight-bullet">▹</span><span>${h}</span></li>`
+            )
+            .join("") +
+          `</ul>`;
+      }
+      if (item.projects && Array.isArray(item.projects)) {
+        extra += item.projects
+          .map(
+            (proj, idx) => `
+          ${idx > 0 ? "<br>" : ""}
+          <p class="timeline-text"><i><b>${proj.name}</b></i></p>
+          <p class="timeline-text">${proj.description}</p>
+        `
+          )
+          .join("");
+      }
+      if (item.links && Array.isArray(item.links)) {
+        extra += `<div class="timeline-action-links">` +
+          item.links
+            .map(
+              (l) => `
+            <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="timeline-link-btn">
+              <ion-icon name="${l.icon || 'link-outline'}"></ion-icon>
+              <span>${l.label}</span>
+            </a>
+          `
+            )
+            .join("") +
+          `</div>`;
+      }
+
+      return `
+      <li class="timeline-item">
+        <h4 class="h4 timeline-item-title">${item.title}</h4>
+        <span>${item.duration}</span>
+        ${extra}
+      </li>
+    `;
+    };
+
+    // Render Publications & Research
+    const publicationsList = document.querySelector("[data-publications-list]");
+    if (publicationsList && data.publications) {
+      publicationsList.innerHTML = data.publications
+        .map(renderTimelineItem)
+        .join("");
+    }
+
     // Render Experience
     const experienceList = document.querySelector("[data-experience-list]");
     if (experienceList && data.experience) {
       experienceList.innerHTML = data.experience
-        .map((exp) => {
-          let extra = "";
-          if (exp.subheading) {
-            extra += `<p class="timeline-text"><i><b>${exp.subheading}</b></i></p>`;
-          }
-          if (exp.description) {
-            extra += `<p class="timeline-text">${exp.description}</p>`;
-          }
-          if (exp.projects && Array.isArray(exp.projects)) {
-            extra += exp.projects
-              .map(
-                (proj, idx) => `
-              ${idx > 0 ? "<br>" : ""}
-              <p class="timeline-text"><i><b>${proj.name}</b></i></p>
-              <p class="timeline-text">${proj.description}</p>
-            `
-              )
-              .join("");
-          }
-
-          return `
-          <li class="timeline-item">
-            <h4 class="h4 timeline-item-title">${exp.title}</h4>
-            <span>${exp.duration}</span>
-            ${extra}
-          </li>
-        `;
-        })
+        .map(renderTimelineItem)
         .join("");
     }
 
